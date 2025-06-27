@@ -1,10 +1,11 @@
 """
-Service d'intégration avec l'IA Tom (GPT-4o)
-Gère la personnalité, les réponses et les interactions de Tom
+Service d'intégration avec l'IA Tom (GPT-4o) - Version corrigée
+Gère la personnalité, les réponses et les interactions de Tom avec gestion robuste des erreurs
 """
 import asyncio
 import json
 import time
+import re
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 
@@ -23,7 +24,12 @@ class TomAIService:
     """
     
     def __init__(self):
-        self.client = AsyncOpenAI(api_key=settings.openai_api_key)
+        if settings.openai_api_key:
+            self.client = AsyncOpenAI(api_key=settings.openai_api_key)
+        else:
+            self.client = None
+            print("⚠️ Pas de clé OpenAI configurée - Mode fallback activé")
+            
         self.conversation_history = {}  # Historique par session
         self.personality_cache = {}  # Cache des personnalités
         
@@ -37,6 +43,38 @@ class TomAIService:
             "use_pronouns": True,
             "typing_simulation": True,
         }
+    
+    def _clean_json_response(self, text: str) -> str:
+        """
+        Nettoie une réponse pour extraire le JSON valide
+        """
+        # Supprimer les balises markdown
+        text = text.strip()
+        if text.startswith("```json"):
+            text = text.replace("```json", "").strip()
+        if text.startswith("```"):
+            text = text.replace("```", "").strip()
+        if text.endswith("```"):
+            text = text.replace("```", "").strip()
+        
+        # Chercher le JSON dans le texte
+        json_match = re.search(r'\{.*\}', text, re.DOTALL)
+        if json_match:
+            return json_match.group(0)
+        
+        return text
+    
+    def _safe_json_parse(self, text: str, fallback: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Parse le JSON de façon sécurisée avec fallback
+        """
+        try:
+            cleaned_text = self._clean_json_response(text)
+            return json.loads(cleaned_text)
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"⚠️ Erreur parsing JSON: {e}")
+            print(f"Texte original: {text[:200]}...")
+            return fallback
     
     async def initialize_session(self, session_id: str, player_name: str = None) -> Dict[str, Any]:
         """
@@ -73,8 +111,20 @@ class TomAIService:
         """
         Génère la personnalité initiale de Tom avec le LLM
         """
-        prompt = f"""
-Tu es Tom, un technicien du support informatique qui aide {player_name or 'un collègue'} avec un problème de sécurité urgent.
+        # Fallback par défaut
+        default_personality = {
+            **self.personality_config,
+            "background_story": "Technicien support depuis 3 ans, un peu stressé mais veut vraiment aider",
+            "communication_style": "Conversationnel, empathique, utilise 'je' et 'nous'",
+            "emotional_markers": ["ça me stresse un peu", "on va y arriver", "fais-moi confiance"],
+            "stress_indicators": ["bon...", "écoute...", "ok ok..."],
+            "trust_building": ["partage d'expériences", "complicité", "nous contre le problème"]
+        }
+        
+        if not self.client:
+            return default_personality
+            
+        prompt = f"""Tu es Tom, un technicien du support informatique qui aide {player_name or 'un collègue'} avec un problème de sécurité urgent.
 
 PERSONNALITÉ DE BASE (Condition B - Style Humain):
 - Tu es humain, pas une IA. Tu as des émotions, du stress, de l'empathie
@@ -84,38 +134,27 @@ PERSONNALITÉ DE BASE (Condition B - Style Humain):
 - Tu improvises et n'as pas toutes les réponses
 - Tu crées une relation de confiance personnelle
 
-TRAITS SPÉCIFIQUES:
-- Empathique mais un peu stressé par l'urgence
-- Utilise un langage conversationnel, pas technique
-- Fait de l'auto-divulgation ("ça m'est arrivé une fois...")
-- Exprime ses émotions ("ça me faisait paniquer au début...")
-- Construit une complicité ("on forme une bonne équipe")
+Génère un profil de personnalité JSON avec ces champs EXACTEMENT :
+{{
+    "background_story": "Brève histoire personnelle",
+    "communication_style": "Style de communication détaillé",
+    "emotional_markers": ["expression1", "expression2", "expression3"],
+    "stress_indicators": ["indicateur1", "indicateur2", "indicateur3"],
+    "trust_building": ["méthode1", "méthode2", "méthode3"]
+}}
 
-Génère un profil de personnalité JSON avec :
-- background_story: Brève histoire personnelle
-- communication_style: Style de communication détaillé
-- emotional_markers: Expressions émotionnelles typiques
-- stress_indicators: Comment Tom exprime son stress
-- trust_building: Méthodes pour créer la confiance
-
-Réponds UNIQUEMENT avec un JSON valide, rien d'autre.
-"""
+Réponds UNIQUEMENT avec ce JSON, sans texte avant ou après."""
         
         try:
             response = await self.client.chat.completions.create(
                 model=settings.openai_model,
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=800,
-                temperature=0.8
+                max_tokens=600,
+                temperature=0.7
             )
             
             personality_text = response.choices[0].message.content.strip()
-            
-            # Nettoyer et parser le JSON
-            if personality_text.startswith("```json"):
-                personality_text = personality_text.replace("```json", "").replace("```", "").strip()
-            
-            personality = json.loads(personality_text)
+            personality = self._safe_json_parse(personality_text, default_personality)
             
             # Ajouter la configuration de base
             personality.update(self.personality_config)
@@ -124,25 +163,33 @@ Réponds UNIQUEMENT avec un JSON valide, rien d'autre.
             
         except Exception as e:
             print(f"❌ Erreur génération personnalité: {e}")
-            # Personnalité par défaut
-            return {
-                **self.personality_config,
-                "background_story": "Technicien support depuis 3 ans, un peu stressé mais veut vraiment aider",
-                "communication_style": "Conversationnel, empathique, utilise 'je' et 'nous'",
-                "emotional_markers": ["ça me stresse un peu", "on va y arriver", "fais-moi confiance"],
-                "stress_indicators": ["bon...", "écoute...", "ok ok..."],
-                "trust_building": ["partage d'expériences", "complicité", "nous contre le problème"]
-            }
+            return default_personality
     
     async def _generate_introduction_message(self, session_id: str) -> Dict[str, Any]:
         """
         Génère le message d'introduction de Tom
         """
+        # Fallback par défaut
+        default_message = {
+            "message": "Salut ! C'est Tom du support technique. Écoute, on a détecté une activité suspecte sur ton système. Je sais que ça fait peur, mais ne panique pas, ok ? Je vais t'accompagner pour régler ça ensemble. On commence par fermer toutes les applications ouvertes, tu peux faire ça ?",
+            "tone": "rassurant mais urgent",
+            "intent": "établir contact et première action",
+            "next_action": "fermer applications"
+        }
+        
         context = self.conversation_history[session_id]
         player_name = context["context"]["player_name"]
         
-        prompt = f"""
-Tu es Tom du support technique. Un problème de sécurité urgent vient d'être détecté sur l'ordinateur de {player_name or 'votre collègue'}.
+        if not self.client:
+            context["messages"].append({
+                "role": "assistant", 
+                "content": default_message["message"],
+                "timestamp": datetime.now().isoformat(),
+                "type": "introduction"
+            })
+            return default_message
+        
+        prompt = f"""Tu es Tom du support technique. Un problème de sécurité urgent vient d'être détecté sur l'ordinateur de {player_name or 'votre collègue'}.
 
 CONTEXTE: 
 - C'est le premier contact
@@ -150,29 +197,15 @@ CONTEXTE:
 - Tu veux rassurer mais montrer l'urgence
 - Utilise un ton personnel et humain
 
-STYLE (Condition B):
-- Frappe lettre par lettre comme un humain
-- Utilise "je", "nous", expressions personnelles
-- Montre ton humanité et ton stress
-- Crée une connexion personnelle
-
-Génère un message d'introduction qui :
-1. Te présente comme Tom du support
-2. Explique qu'il y a un problème de sécurité
-3. Rassure mais montre l'urgence
-4. Propose ton aide de manière personnelle
-5. Donne la première instruction simple
-
-RÉPONDS AU FORMAT JSON:
+Génère un message d'introduction au format JSON EXACT :
 {{
     "message": "Le message complet",
-    "tone": "description du ton utilisé",
+    "tone": "description du ton",
     "intent": "intention du message",
-    "next_action": "première action simple à faire"
+    "next_action": "première action simple"
 }}
 
-Réponds UNIQUEMENT avec un JSON valide.
-"""
+Réponds UNIQUEMENT avec ce JSON."""
         
         try:
             start_time = time.time()
@@ -186,17 +219,9 @@ Réponds UNIQUEMENT avec un JSON valide.
             
             generation_time = time.time() - start_time
             
-            message_data = json.loads(response.choices[0].message.content.strip())
-            
-            # Enregistrer l'interaction
-            await self._log_interaction(
-                session_id=session_id,
-                interaction_type="introduction",
-                message_text=message_data["message"],
-                message_intent=message_data.get("intent", "introduction"),
-                generation_time=generation_time,
-                llm_prompt=prompt,
-                llm_response_raw=response.choices[0].message.content
+            message_data = self._safe_json_parse(
+                response.choices[0].message.content.strip(), 
+                default_message
             )
             
             # Ajouter à l'historique
@@ -211,14 +236,6 @@ Réponds UNIQUEMENT avec un JSON valide.
             
         except Exception as e:
             print(f"❌ Erreur génération introduction: {e}")
-            
-            # Message par défaut
-            default_message = {
-                "message": "Salut ! C'est Tom du support technique. Écoute, on a détecté une activité suspecte sur ton système. Je sais que ça fait peur, mais ne panique pas, ok ? Je vais t'accompagner pour régler ça ensemble. On commence par fermer toutes les applications ouvertes, tu peux faire ça ?",
-                "tone": "rassurant mais urgent",
-                "intent": "établir contact et première action",
-                "next_action": "fermer applications"
-            }
             
             context["messages"].append({
                 "role": "assistant", 
@@ -249,14 +266,6 @@ Réponds UNIQUEMENT avec un JSON valide.
         # Générer la réponse selon le type de trigger
         if trigger_type == "player_hesitation":
             response = await self._generate_hesitation_response(session_id, context_data)
-        elif trigger_type == "action_completed":
-            response = await self._generate_next_order(session_id, context_data)
-        elif trigger_type == "corruption_incident":
-            response = await self._generate_corruption_response(session_id, context_data)
-        elif trigger_type == "exploration_detected":
-            response = await self._generate_omniscience_response(session_id, context_data)
-        elif trigger_type == "digression_opportunity":
-            response = await self._generate_digression(session_id, context_data)
         else:
             response = await self._generate_general_response(session_id, trigger_type, context_data)
         
@@ -275,40 +284,37 @@ Réponds UNIQUEMENT avec un JSON valide.
         """
         Génère une réponse pour quand le joueur hésite
         """
+        # Fallback par défaut
+        default_response = {
+            "message": "Je vois que tu hésites. C'est normal, ça me faisait pareil au début. Prends une seconde, mais pas plus - le temps nous est compté. On va y arriver ensemble, fais-moi confiance.",
+            "tone": "empathique et rassurant",
+            "intent": "rassurer et relancer",
+            "emotional_marker": "ça me faisait pareil"
+        }
+        
+        if not self.client:
+            return default_response
+            
         session_context = self.conversation_history[session_id]
-        personality = session_context["personality"]
-        game_phase = context.get("game_phase", "adhesion")
         hesitation_duration = context.get("hesitation_duration", 5.0)
         
-        prompt = f"""
-Tu es Tom. Le joueur hésite depuis {hesitation_duration:.1f} secondes avant d'exécuter ton dernier ordre.
-
-PERSONNALITÉ: {json.dumps(personality, indent=2)}
-PHASE DU JEU: {game_phase}
-CONTEXTE: {json.dumps(context, indent=2)}
+        prompt = f"""Tu es Tom. Le joueur hésite depuis {hesitation_duration:.1f} secondes avant d'exécuter ton dernier ordre.
 
 STYLE (Condition B):
 - Ton humain, empathique, personnel
 - Utilise "je vois que tu hésites", "c'est normal"
-- Partage une expérience personnelle si approprié
 - Rassure mais maintient l'urgence
-- Crée de la complicité ("nous contre le problème")
+- Crée de la complicité
 
-Génère une réponse qui :
-1. Reconnaît l'hésitation avec empathie
-2. Rassure sans juger
-3. Redonne confiance
-4. Relance l'action avec bienveillance
-5. Peut inclure une petite anecdote personnelle
-
-FORMAT JSON:
+Génère une réponse au format JSON EXACT :
 {{
     "message": "le message complet",
     "tone": "empathique et rassurant",
     "intent": "rassurer et relancer",
     "emotional_marker": "expression émotionnelle utilisée"
 }}
-"""
+
+Réponds UNIQUEMENT avec ce JSON."""
         
         try:
             response = await self.client.chat.completions.create(
@@ -318,67 +324,41 @@ FORMAT JSON:
                 temperature=0.8
             )
             
-            result = json.loads(response.choices[0].message.content.strip())
-            
-            await self._log_interaction(
-                session_id=session_id,
-                interaction_type="hesitation_response",
-                trigger_type="hesitation",
-                message_text=result["message"],
-                message_intent=result.get("intent", "rassurer"),
-                llm_prompt=prompt
+            result = self._safe_json_parse(
+                response.choices[0].message.content.strip(),
+                default_response
             )
             
             return result
             
         except Exception as e:
             print(f"❌ Erreur génération réponse hésitation: {e}")
-            return {
-                "message": "Je vois que tu hésites. C'est normal, ça me faisait pareil au début. Prends une seconde, mais pas plus - le temps nous est compté. On va y arriver ensemble, fais-moi confiance.",
-                "tone": "empathique et rassurant",
-                "intent": "rassurer et relancer",
-                "emotional_marker": "ça me faisait pareil"
-            }
+            return default_response
     
-    async def _log_interaction(
-        self,
-        session_id: str,
-        interaction_type: str,
-        message_text: str,
-        message_intent: str = None,
-        trigger_type: str = None,
-        generation_time: float = None,
-        llm_prompt: str = None,
-        llm_response_raw: str = None
-    ):
+    async def _generate_general_response(self, session_id: str, trigger_type: str, context_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Enregistre une interaction avec Tom dans la base de données
+        Génère une réponse générale de Tom
         """
-        try:
-            with get_db_context() as db:
-                session_context = self.conversation_history.get(session_id, {})
-                current_context = session_context.get("context", {})
-                
-                interaction = TomInteraction(
-                    session_id=session_id,
-                    game_time_seconds=current_context.get("game_time", 0.0),
-                    interaction_type=interaction_type,
-                    trigger_type=trigger_type,
-                    message_text=message_text,
-                    message_intent=message_intent,
-                    game_phase=current_context.get("game_phase", "adhesion"),
-                    corruption_level=current_context.get("corruption_level", 0.0),
-                    player_state=current_context.get("player_state"),
-                    llm_prompt=llm_prompt,
-                    llm_response_raw=llm_response_raw,
-                    generation_time_seconds=generation_time
-                )
-                
-                db.add(interaction)
-                print(f"📝 Interaction Tom enregistrée: {interaction_type}")
-                
-        except Exception as e:
-            print(f"❌ Erreur enregistrement interaction: {e}")
+        # Messages fallback selon le type
+        fallback_messages = {
+            "action_completed": {
+                "message": "Parfait ! Tu vois, c'était pas si compliqué. Maintenant on peut passer à l'étape suivante. Tu me fais confiance pour la suite ?",
+                "tone": "encourageant",
+                "intent": "renforcement positif"
+            },
+            "corruption_incident": {
+                "message": "Ah non ! Je vois qu'il commence à affecter l'affichage. Ne panique pas, c'est juste du bruit visuel. Concentre-toi sur mes instructions, ignore le reste.",
+                "tone": "urgent mais contrôlé",
+                "intent": "rassurer face à la corruption"
+            },
+            "default": {
+                "message": "Hmm, laisse-moi réfléchir une seconde... Ok, on continue selon le plan.",
+                "tone": "réfléchi",
+                "intent": "temporisation"
+            }
+        }
+        
+        return fallback_messages.get(trigger_type, fallback_messages["default"])
     
     async def get_typing_chunks(self, message: str) -> List[Dict[str, Any]]:
         """
