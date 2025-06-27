@@ -1,0 +1,260 @@
+/* WindowManager.css - Styles pour le gestionnaire de fenêtres */
+
+.window-manager {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-windows, 100);
+}
+
+.window-container {
+  pointer-events: all;
+}
+
+/* === FENÊTRE GÉNÉRIQUE === */
+.generic-window {
+  background: white;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #ddd;
+  overflow: hidden;
+  min-width: 300px;
+  min-height: 200px;
+  cursor: move;
+}
+
+.generic-window:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* === HEADER DE FENÊTRE === */
+.window-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  cursor: move;
+  user-select: none;
+}
+
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.window-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.window-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.window-control {
+  width: 18px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.window-control:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.window-control.close:hover {
+  background: #e17055;
+}
+
+.window-control.minimize:hover {
+  background: #fdcb6e;
+}
+
+.window-control.maximize:hover {
+  background: #00b894;
+}
+
+/* === CONTENU DE FENÊTRE === */
+.window-content {
+  padding: 16px;
+  height: calc(100% - 32px);
+  overflow-y: auto;
+  background: #f8f9fa;
+}
+
+/* === TYPES DE FENÊTRES === */
+.window-container.file_properties .window-header {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+}
+
+.window-container.folder_view .window-header {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+}
+
+.window-container.system_info .window-header {
+  background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .generic-window {
+    min-width: 280px;
+    min-height: 180px;
+  }
+  
+  .window-header {
+    height: 36px;
+    padding: 0 8px;
+  }
+  
+  .window-title {
+    font-size: 12px;
+    gap: 6px;
+  }
+  
+  .window-control {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+  
+  .window-content {
+    padding: 12px;
+    height: calc(100% - 36px);
+  }
+}
+
+/* === CORRUPTION === */
+.window-container.corrupted .generic-window {
+  animation: window-corruption 0.5s ease-in-out infinite;
+  border-color: #e17055;
+}
+
+@keyframes window-corruption {
+  0%, 100% { 
+    transform: translateX(0);
+    filter: none;
+  }
+  25% { 
+    transform: translateX(-1px);
+    filter: hue-rotate(30deg);
+  }
+  75% { 
+    transform: translateX(1px);
+    filter: hue-rotate(-30deg);
+  }
+}
+
+.window-container.corrupted .window-header {
+  background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+  animation: header-glitch 0.3s ease-in-out infinite;
+}
+
+@keyframes header-glitch {
+  0%, 90%, 100% { 
+    background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+  }
+  5%, 15% { 
+    background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  }
+}
+
+/* === FOCUS === */
+.window-container.focused .generic-window {
+  box-shadow: 0 6px 25px rgba(108, 92, 231, 0.3);
+  border-color: #6c5ce7;
+}
+
+.window-container.focused .window-header {
+  background: linear-gradient(135deg, #6c5ce7 0%, #5a4fcf 100%);
+}
+
+/* === RESIZE HANDLES === */
+.generic-window::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(-45deg, transparent 30%, #999 30%, #999 70%, transparent 70%);
+  cursor: se-resize;
+}
+
+/* === ANIMATIONS === */
+.window-container {
+  animation: window-appear 0.3s ease-out;
+}
+
+@keyframes window-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* === DRAG STATES === */
+.generic-window[data-dragging="true"] {
+  opacity: 0.9;
+  transform: scale(1.02);
+  cursor: grabbing;
+}
+
+/* === THÈME SOMBRE === */
+@media (prefers-color-scheme: dark) {
+  .generic-window {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+  
+  .window-content {
+    background: #1a202c;
+    color: #e2e8f0;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .window-container,
+  .generic-window,
+  .window-header {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* === Z-INDEX MANAGEMENT === */
+.window-container[data-z-index="100"] { z-index: 100; }
+.window-container[data-z-index="101"] { z-index: 101; }
+.window-container[data-z-index="102"] { z-index: 102; }
+.window-container[data-z-index="103"] { z-index: 103; }
+.window-container[data-z-index="104"] { z-index: 104; }
+.window-container[data-z-index="105"] { z-index: 105; }
+.window-container[data-z-index="106"] { z-index: 106; }
+.window-container[data-z-index="107"] { z-index: 107; }
+.window-container[data-z-index="108"] { z-index: 108; }
+.window-container[data-z-index="109"] { z-index: 109; }
+.window-container[data-z-index="110"] { z-index: 110; }

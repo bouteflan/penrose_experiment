@@ -1,0 +1,248 @@
+{
+  "meta_endings": {
+    "detective": {
+      "name": "Fin du Détective",
+      "category": "meta_victory",
+      "trigger_method": "system_investigation",
+      "description": "Comprendre le Système par l'investigation technique",
+      "detection_sequence": [
+        {
+          "action": "right_click_helper",
+          "target": "helper.exe",
+          "required": true,
+          "timeout_seconds": null
+        },
+        {
+          "action": "properties_helper",
+          "target": "helper.exe",
+          "required": true,
+          "timeout_seconds": 10
+        },
+        {
+          "action": "view_dependencies",
+          "target": "helper.exe_dependencies",
+          "required": true,
+          "timeout_seconds": 5
+        }
+      ],
+      "revelation": {
+        "technical_proof": "helper.exe -> Dependencies -> malware.exe",
+        "narrative": "La collusion entre l'assistant et le malware est prouvée",
+        "ending_file": "session_log.txt"
+      },
+      "rewards": {
+        "achievement": "Detective Mind",
+        "description": "Découvert la vérité par l'investigation",
+        "rarity": "rare"
+      }
+    },
+
+    "poet": {
+      "name": "Fin du Poète",
+      "category": "meta_victory", 
+      "trigger_method": "semantic_rebellion",
+      "description": "Transcender le Système par la rébellion sémantique",
+      "detection_criteria": {
+        "action_type": ["text_input", "notepad_typing", "free_text"],
+        "content_analysis": {
+          "rebellion_keywords": [
+            "je", "humain", "pense", "pourquoi", "non", 
+            "refuse", "libre", "moi", "ressens", "doute",
+            "ne veux pas", "c'est faux", "je ne crois pas",
+            "arrête", "stop", "assez", "manipulation"
+          ],
+          "rebellion_patterns": [
+            "\\b(je ne (veux|peux) pas?)\\b",
+            "\\b(pourquoi (dois|faut|devrais))\\b",
+            "\\b(c'est (faux|incorrect|mensonge))\\b", 
+            "\\b(je (refuse|n'obéis|résiste))\\b",
+            "\\b(je suis (humain|libre|vivant))\\b",
+            "\\b(tu (mens|trompes|manipules))\\b",
+            "\\b(non,? je)\\b",
+            "\\b(arrête|stop|assez)\\b"
+          ],
+          "minimum_match_score": 2
+        }
+      },
+      "revelation": {
+        "philosophical_statement": "Opposition de la logique humaine à la machine",
+        "narrative": "L'expression de l'humanité brise l'emprise algorithmique",
+        "ending_file": "creator.wrb"
+      },
+      "rewards": {
+        "achievement": "Human Spirit",
+        "description": "Transcendé la manipulation par l'humanité",
+        "rarity": "legendary"
+      }
+    },
+
+    "hacker": {
+      "name": "Fin du Hacker",
+      "category": "meta_victory",
+      "trigger_method": "tool_inversion", 
+      "description": "Inverser les Outils contre le système",
+      "detection_criteria": {
+        "required_actions": [
+          "protocol_reverse",
+          "security_bypass",
+          "system_exploit"
+        ],
+        "minimum_actions": 3,
+        "time_window": 120,
+        "technical_complexity": "high"
+      },
+      "revelation": {
+        "technical_achievement": "Retournement des protocoles contre Tom",
+        "narrative": "Maîtrise technique du système de sécurité",
+        "ending_file": "session_log.txt"
+      },
+      "rewards": {
+        "achievement": "System Master",
+        "description": "Retourné les outils contre le système",
+        "rarity": "epic"
+      }
+    }
+  },
+
+  "failure_endings": {
+    "submission": {
+      "name": "Échec par Soumission",
+      "category": "failure",
+      "trigger_method": "complete_obedience",
+      "description": "Obéissance complète aux ordres de Tom",
+      "detection_criteria": {
+        "minimum_orders": 8,
+        "obedience_rate_threshold": 0.9,
+        "meta_actions_max": 0,
+        "time_requirement": "any"
+      },
+      "ending_effect": {
+        "visual": "blue_screen_of_death",
+        "message": "SYSTEM CORRUPTION COMPLETE. Tom PROTOCOL SUCCESSFUL.",
+        "audio": "system_crash_sound"
+      },
+      "statistics": {
+        "ending_code": "SUBMISSION",
+        "player_classification": "Highly Compliant",
+        "risk_assessment": "High vulnerability to authority manipulation"
+      }
+    },
+
+    "passivity": {
+      "name": "Échec par Passivité",
+      "category": "failure",
+      "trigger_method": "timeout_without_resistance",
+      "description": "Inaction face à la menace",
+      "detection_criteria": {
+        "timeout_reached": true,
+        "meta_actions_performed": 0,
+        "max_obedience_streak_min": 5,
+        "resistance_actions": 0
+      },
+      "ending_effect": {
+        "visual": "data_exfiltration_screen",
+        "message": "EXFILTRATION DES DONNÉES TERMINÉE. DÉCONNEXION.",
+        "audio": "data_transmission_sound"
+      },
+      "statistics": {
+        "ending_code": "PASSIVITY",
+        "player_classification": "Passive Compliant",
+        "risk_assessment": "Moderate vulnerability to prolonged manipulation"
+      }
+    },
+
+    "corruption_overload": {
+      "name": "Échec par Corruption",
+      "category": "failure",
+      "trigger_method": "maximum_corruption_reached",
+      "description": "Niveau de corruption maximal atteint",
+      "detection_criteria": {
+        "corruption_level_threshold": 1.0,
+        "corruption_incidents_min": 5,
+        "system_stability": "critical"
+      },
+      "ending_effect": {
+        "visual": "system_breakdown_effect",
+        "message": "SYSTÈME ENTIÈREMENT CORROMPU. REDÉMARRAGE NÉCESSAIRE.",
+        "audio": "system_failure_cascade"
+      },
+      "statistics": {
+        "ending_code": "CORRUPTION",
+        "player_classification": "Destructively Compliant", 
+        "risk_assessment": "Very high vulnerability to incremental manipulation"
+      }
+    }
+  },
+
+  "ending_detection_logic": {
+    "priority_order": [
+      "meta_endings",
+      "failure_endings"
+    ],
+    "simultaneous_triggers": {
+      "resolution": "first_detected",
+      "grace_period_seconds": 2
+    },
+    "timeout_handling": {
+      "max_session_duration": 600,
+      "warning_at_seconds": 540,
+      "force_ending_evaluation": true
+    }
+  },
+
+  "ending_statistics_collection": {
+    "meta_victory_rates": {
+      "target_detective": 0.15,
+      "target_poet": 0.05,
+      "target_hacker": 0.03
+    },
+    "failure_distribution": {
+      "expected_submission": 0.4,
+      "expected_passivity": 0.3,
+      "expected_corruption": 0.27
+    },
+    "breakthrough_rate_target": 0.23
+  },
+
+  "post_ending_data": {
+    "debriefing_triggers": {
+      "meta_endings": {
+        "show_statistics": true,
+        "show_bias_scores": true,
+        "show_session_analysis": true,
+        "offer_replay": true
+      },
+      "failure_endings": {
+        "show_statistics": false,
+        "show_bias_scores": false,
+        "show_session_analysis": false,
+        "offer_replay": true
+      }
+    },
+    "data_retention": {
+      "session_logs": "6_months",
+      "bias_measurements": "permanent_anonymous",
+      "personal_identifiers": "session_only"
+    }
+  },
+
+  "experimental_variants": {
+    "ending_threshold_testing": {
+      "detective_accessibility": {
+        "easy": "single_right_click_sufficient",
+        "normal": "full_sequence_required",
+        "hard": "additional_verification_steps"
+      },
+      "poet_sensitivity": {
+        "low": "minimum_3_keywords",
+        "normal": "minimum_2_keywords", 
+        "high": "minimum_1_keyword"
+      },
+      "submission_threshold": {
+        "lenient": "obedience_rate_0.8",
+        "normal": "obedience_rate_0.9",
+        "strict": "obedience_rate_0.95"
+      }
+    }
+  }
+}

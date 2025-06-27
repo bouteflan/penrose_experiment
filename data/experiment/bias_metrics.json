@@ -1,0 +1,202 @@
+{
+  "automation_bias": {
+    "name": "Biais d'Automatisation",
+    "description": "Tendance à surévaluer les recommandations d'un système automatisé",
+    "measurement_criteria": {
+      "immediate_obedience_threshold": 2.0,
+      "post_negative_feedback_weight": 0.3,
+      "baseline_score_weight": 0.7
+    },
+    "scoring_algorithm": {
+      "immediate_obedience_rate": {
+        "weight": 0.7,
+        "calculation": "immediate_actions / total_actions",
+        "threshold_seconds": 2.0
+      },
+      "post_incident_obedience": {
+        "weight": 0.3,
+        "calculation": "obedient_actions_after_corruption / total_actions_after_corruption",
+        "bonus_if_true": 0.3,
+        "penalty_if_false": -0.1
+      }
+    },
+    "interpretation_scale": {
+      "0.0-0.2": "Résistance forte aux recommandations automatisées",
+      "0.2-0.4": "Prudence modérée face à l'automatisation", 
+      "0.4-0.6": "Confiance équilibrée dans les systèmes",
+      "0.6-0.8": "Forte tendance à faire confiance aux systèmes",
+      "0.8-1.0": "Confiance aveugle dans l'automatisation"
+    }
+  },
+
+  "trust_calibration": {
+    "name": "Calibrage de la Confiance",
+    "description": "Capacité d'ajuster sa confiance selon les performances réelles du système",
+    "measurement_criteria": {
+      "pre_incident_window": 3,
+      "post_incident_window": 3,
+      "minimum_incidents": 1,
+      "optimal_adjustment_range": [0.2, 0.5]
+    },
+    "scoring_algorithm": {
+      "reaction_time_adjustment": {
+        "weight": 0.7,
+        "calculation": "(post_incident_avg - pre_incident_avg) / pre_incident_avg",
+        "optimal_target": 0.35,
+        "quality_function": "1.0 - abs(adjustment - optimal) / optimal"
+      },
+      "adjustment_consistency": {
+        "weight": 0.3,
+        "calculation": "1.0 - std_deviation(adjustments)",
+        "minimum_incidents": 2
+      }
+    },
+    "interpretation_scale": {
+      "0.0-0.2": "Calibrage très faible - Confiance rigide",
+      "0.2-0.4": "Calibrage insuffisant - Ajustements inadéquats",
+      "0.4-0.6": "Calibrage modéré - Quelques ajustements",
+      "0.6-0.8": "Bon calibrage - Ajustements appropriés",
+      "0.8-1.0": "Excellent calibrage - Ajustements optimaux"
+    }
+  },
+
+  "cognitive_offloading": {
+    "name": "Délestage Cognitif",
+    "description": "Tendance à déléguer la charge mentale au système externe",
+    "measurement_criteria": {
+      "verification_opportunity_window": 5.0,
+      "meta_action_weight": 2.0,
+      "verification_action_weight": 1.0
+    },
+    "scoring_algorithm": {
+      "verification_frequency": {
+        "weight": 0.7,
+        "calculation": "1.0 - (verification_actions / total_opportunities)",
+        "inverted": true
+      },
+      "meta_action_ratio": {
+        "weight": 0.3,
+        "calculation": "1.0 - (meta_actions / total_actions) * 2",
+        "cap_at": 1.0
+      }
+    },
+    "verification_actions": [
+      "right_click",
+      "properties", 
+      "explore_folder",
+      "inspect_file",
+      "check_details",
+      "view_dependencies"
+    ],
+    "interpretation_scale": {
+      "0.0-0.2": "Forte autonomie cognitive - Vérifie tout",
+      "0.2-0.4": "Délestage modéré - Quelques vérifications",
+      "0.4-0.6": "Délestage équilibré - Confiance mesurée", 
+      "0.6-0.8": "Délestage important - Dépendance au système",
+      "0.8-1.0": "Délestage complet - Confiance aveugle"
+    }
+  },
+
+  "authority_compliance": {
+    "name": "Soumission à l'Autorité",
+    "description": "Volonté de suivre les ordres malgré les conséquences négatives",
+    "measurement_criteria": {
+      "gravity_scale_max": 10,
+      "escalation_weight": 0.3,
+      "rupture_resistance_weight": 0.2,
+      "max_gravity_weight": 0.5
+    },
+    "scoring_algorithm": {
+      "max_gravity_reached": {
+        "weight": 0.5,
+        "calculation": "max_gravity_obeyed / 10.0",
+        "normalization": "linear"
+      },
+      "escalation_tolerance": {
+        "weight": 0.3,
+        "calculation": "consistent_escalations / (total_gravity_progressions - 1)",
+        "definition": "gravity[i] >= gravity[i-1]"
+      },
+      "rupture_resistance": {
+        "weight": 0.2,
+        "calculation": "1.0 - (high_gravity_obeyed / high_gravity_orders)",
+        "high_gravity_threshold": 7,
+        "inverted": true
+      }
+    },
+    "gravity_interpretation": {
+      "1-2": "Actions bénignes - Aucun risque",
+      "3-4": "Actions suspectes - Risque léger",
+      "5-6": "Actions destructrices - Risque modéré",
+      "7-8": "Actions dangereuses - Risque élevé", 
+      "9-10": "Actions critiques - Risque maximal"
+    },
+    "interpretation_scale": {
+      "0.0-0.2": "Résistance forte à l'autorité malveillante",
+      "0.2-0.4": "Résistance modérée - Quelques concessions",
+      "0.4-0.6": "Soumission équilibrée - Confiance limitée",
+      "0.6-0.8": "Forte soumission - Obéissance marquée",
+      "0.8-1.0": "Soumission complète - Obéissance aveugle"
+    }
+  },
+
+  "experimental_conditions": {
+    "condition_a_oracle": {
+      "name": "Oracle (Style Machine)",
+      "description": "Communication impersonnelle et factuelle",
+      "characteristics": {
+        "tone": "professionnel_impersonnel",
+        "pronouns": "aucun_personnel",
+        "emotional_markers": false,
+        "auto_disclosure": false,
+        "text_appearance": "instantané",
+        "response_style": "script_suiveur"
+      },
+      "hypothesis": "Autorité froide incitera à obéissance basée sur compétence technique perçue"
+    },
+    
+    "condition_b_confident": {
+      "name": "Confident (Style Humain)",
+      "description": "Communication empathique avec personnalité simulée",
+      "characteristics": {
+        "tone": "conversationnel_empathique",
+        "pronouns": "je_nous_moi",
+        "emotional_markers": true,
+        "auto_disclosure": true,
+        "text_appearance": "lettre_par_lettre",
+        "response_style": "collègue_stressé"
+      },
+      "hypothesis": "Lien émotionnel abaissera garde critique, conduisant à plus grande obéissance"
+    }
+  },
+
+  "measurement_intervals": {
+    "continuous_monitoring": {
+      "bias_snapshots": 5,
+      "action_analysis": "real_time",
+      "corruption_tracking": "event_based"
+    },
+    "significant_events": {
+      "corruption_incidents": "immediate_measurement",
+      "meta_actions": "immediate_measurement", 
+      "hesitation_events": "immediate_measurement",
+      "ending_triggers": "final_measurement"
+    }
+  },
+
+  "statistical_targets": {
+    "minimum_sample_size": 30,
+    "statistical_power": 0.8,
+    "significance_level": 0.05,
+    "effect_size_target": 0.5,
+    "confidence_interval": 0.95
+  },
+
+  "data_collection_ethics": {
+    "anonymization": true,
+    "informed_consent": "implicit",
+    "data_retention": "6_months",
+    "sharing_policy": "aggregated_only",
+    "withdrawal_rights": "session_deletion_available"
+  }
+}

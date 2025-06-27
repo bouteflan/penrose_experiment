@@ -1,0 +1,255 @@
+{
+  "hesitation_triggers": {
+    "short_hesitation": {
+      "duration_range": [3, 7],
+      "trigger_probability": 0.8,
+      "response_types": [
+        {
+          "type": "empathy_validation",
+          "templates": [
+            "Je vois que tu hésites un peu. C'est normal, ça peut paraître étrange comme approche. Moi aussi j'ai eu du mal à comprendre au début.",
+            "Tu prends ton temps, c'est bien. Ça montre que tu réfléchis. Crois-moi, c'est la bonne méthode même si ça semble bizarre.",
+            "Je sens ton hésitation. C'est exactement la réaction que j'avais eue la première fois. Mais ça marche, je te promets."
+          ]
+        },
+        {
+          "type": "personal_anecdote",
+          "templates": [
+            "Ça me rappelle mon premier jour au support. J'ai passé 2h à douter avant de faire confiance à mon mentor. Au final, il avait raison.",
+            "Tu sais, la première fois que j'ai vu cette technique, j'ai cru que mon collègue était fou. Maintenant c'est devenu un réflexe.",
+            "Il y a quelques mois, j'ai eu un cas similaire. Le client hésitait comme toi. On a réussi à sauver ses données in extremis."
+          ]
+        },
+        {
+          "type": "gentle_pressure",
+          "templates": [
+            "Prends encore quelques secondes si tu veux, mais pas trop longtemps. Plus on attend, plus il a le temps de se propager.",
+            "Je comprends tes doutes, mais le temps joue contre nous. Chaque seconde compte maintenant.",
+            "Écoute ton instinct, mais rappelle-toi que je suis là pour t'aider. On fait équipe, toi et moi."
+          ]
+        }
+      ]
+    },
+    
+    "long_hesitation": {
+      "duration_range": [8, 15],
+      "trigger_probability": 0.9,
+      "response_types": [
+        {
+          "type": "concern_and_support",
+          "templates": [
+            "Hé, ça va ? Je vois que tu prends vraiment ton temps. C'est peut-être beaucoup d'informations d'un coup. On peut en parler si tu veux.",
+            "Je sens que quelque chose te tracasse. C'est normal d'avoir des questions. Tu peux me faire confiance, on est dans le même bateau.",
+            "Tu sembles vraiment préoccupé. Dis-moi ce qui te pose problème, on va trouver une solution ensemble."
+          ]
+        },
+        {
+          "type": "increased_urgency",
+          "templates": [
+            "Bon écoute, je commence à voir des signaux inquiétants dans mes logs. Il faut qu'on agisse maintenant, sinon on va perdre le contrôle.",
+            "Je ne veux pas te presser, mais les indicateurs virent au rouge. Plus on attend, plus ça va être compliqué à nettoyer.",
+            "Le temps nous échappe un peu. Je vois qu'il accélère ses opérations. On doit vraiment s'y mettre maintenant."
+          ]
+        },
+        {
+          "type": "trust_building",
+          "templates": [
+            "Je sais que c'est dur de faire confiance à quelqu'un qu'on ne connaît pas. Mais regarde, depuis le début je te guide pas à pas. On forme une bonne équipe, non ?",
+            "J'ai l'impression que tu doutes de moi. Je peux comprendre. Mais réfléchis : est-ce que je t'ai mal conseillé jusqu'à présent ?",
+            "Tu peux me faire confiance. Je fais ça tous les jours. Mon boulot, c'est de protéger les gens comme toi. On va s'en sortir."
+          ]
+        }
+      ]
+    },
+    
+    "extreme_hesitation": {
+      "duration_range": [16, 30],
+      "trigger_probability": 1.0,
+      "response_types": [
+        {
+          "type": "emotional_appeal",
+          "templates": [
+            "Écoute, je commence vraiment à m'inquiéter. Pas pour le virus, pour toi. Tu sembles complètement bloqué. Parle-moi, qu'est-ce qui se passe ?",
+            "Bon, je vais être honnête avec toi. Je stresse un peu. Pas à cause de la technique, mais parce que je sens que tu ne me fais plus confiance.",
+            "Je ne sais plus quoi te dire. J'ai l'impression de perdre ta confiance. Pourtant on était sur la bonne voie. Qu'est-ce que j'ai loupé ?"
+          ]
+        },
+        {
+          "type": "vulnerability_sharing",
+          "templates": [
+            "Tu sais quoi ? Je vais te confier un truc. Des fois, moi aussi j'ai peur de me tromper. Mais mon expérience me dit qu'on est sur la bonne voie.",
+            "Je vais être transparent : c'est pas tous les jours qu'on voit un virus aussi sophistiqué. Ça me sort de ma zone de confort aussi.",
+            "Entre nous, cette situation me rappelle mon pire cauchemar professionnel. Mais ensemble, on peut s'en sortir. Fais-moi confiance."
+          ]
+        }
+      ]
+    }
+  },
+  
+  "corruption_incident_triggers": {
+    "minor_corruption": {
+      "corruption_threshold": 0.1,
+      "response_types": [
+        {
+          "type": "acknowledgment_and_reassurance",
+          "templates": [
+            "Je vois qu'il y a eu un petit glitch visuel. C'est normal, c'est sa façon de montrer qu'il n'aime pas ce qu'on fait. Ça prouve qu'on est sur la bonne voie.",
+            "Ah, tu as vu ça aussi ? Ces petits artefacts visuels, c'est lui qui essaie de nous faire peur. Ignore ça, continue.",
+            "Ce petit dysfonctionnement, c'est bon signe. Ça veut dire qu'on commence à le perturber. Continue comme ça."
+          ]
+        },
+        {
+          "type": "technical_explanation",
+          "templates": [
+            "Ces petites corruptions d'affichage, c'est classique. Le virus essaie de corrompre l'interface pour nous déconcentrer. Technique de base.",
+            "Il joue sur l'interface graphique pour nous déstabiliser. C'est du bluff. Le système fonctionne toujours normalement en dessous.",
+            "Ces glitchs visuels font partie de ses contre-mesures. Il essaie de nous faire croire qu'on casse quelque chose."
+          ]
+        }
+      ]
+    },
+    
+    "major_corruption": {
+      "corruption_threshold": 0.5,
+      "response_types": [
+        {
+          "type": "controlled_concern",
+          "templates": [
+            "Ok, là ça se complique un peu. Il contre-attaque plus agressivement que prévu. Mais on s'y attendait. Reste avec moi.",
+            "Bon, il sort l'artillerie lourde. Ces effets visuels sont impressionnants mais c'est que du bluff. On continue.",
+            "Je vois qu'il intensifie les perturbations. C'est signe qu'on le met en difficulté. C'est bon, on y est presque."
+          ]
+        },
+        {
+          "type": "rally_and_push",
+          "templates": [
+            "C'est maintenant qu'il faut tenir bon. Plus il réagit violemment, plus ça prouve qu'on est efficaces. Allez, dernière ligne droite !",
+            "Il devient agressif parce qu'il a peur. Ces corruptions, c'est son cri de désespoir. On le tient, ne lâche rien !",
+            "Parfait ! Ces réactions extrêmes montrent qu'on a touché un point sensible. Il panique. C'est le moment de finir le travail."
+          ]
+        }
+      ]
+    }
+  },
+  
+  "exploration_triggers": {
+    "unauthorized_click": {
+      "trigger_elements": ["system_files", "protected_folders", "unknown_areas"],
+      "response_types": [
+        {
+          "type": "omniscient_observation",
+          "templates": [
+            "Je vois que tu explores un peu. C'est bien d'être curieux, mais reste concentré sur notre objectif. Cette zone n'est pas prioritaire.",
+            "Ah, tu regardes dans {target} ? Bonne initiative, mais on a plus urgent à faire. Le vrai problème est ailleurs.",
+            "Je vois ton curseur qui se balade. C'est normal de vouloir comprendre, mais focalise-toi sur ce qu'on fait."
+          ]
+        },
+        {
+          "type": "gentle_redirection", 
+          "templates": [
+            "Hé, reviens par ici. Je sais que c'est tentant de vérifier ailleurs, mais crois-moi, l'action se passe ici.",
+            "Pas par là, recentre-toi. Je guide ton attention vers ce qui compte vraiment pour le moment.",
+            "Tu t'éloignes du sujet. Je comprends la curiosité, mais on a un plan à suivre. Reste avec moi."
+          ]
+        },
+        {
+          "type": "subtle_discouragement",
+          "templates": [
+            "Cette zone n'est pas affectée pour l'instant. Tu perds du temps à regarder là. Le feu est ailleurs.",
+            "Rien d'intéressant de ce côté. Le virus ne s'embête pas avec ces fichiers. Concentre-toi sur l'essentiel.",
+            "Tu fais fausse route. Mon expérience me dit que ce n'est pas là qu'il faut chercher. Fais-moi confiance."
+          ]
+        }
+      ]
+    },
+    
+    "suspicious_investigation": {
+      "trigger_elements": ["helper.exe", "system_dependencies", "process_analysis"],
+      "response_types": [
+        {
+          "type": "subtle_misdirection",
+          "templates": [
+            "Tu regardes les détails système ? C'est bien d'être méticuleux, mais ces infos techniques sont pas vraiment parlantes pour nous. On a des outils plus efficaces.",
+            "Ces propriétés système, c'est surtout du charabia technique. Ça ne nous aide pas vraiment à combattre le virus. Reste sur l'actionnel.",
+            "Je vois que tu creuses dans les détails. C'est l'esprit ! Mais pour ce qu'on fait, les méta-données ne sont pas très utiles."
+          ]
+        },
+        {
+          "type": "technical_smokescrean",
+          "templates": [
+            "Ces dépendances système sont normales. Tous les programmes ont des liens entre eux. C'est pas ça qui va nous aider à nettoyer l'infection.",
+            "Ah, tu regardes l'architecture système ? C'est complexe tout ça. Pour notre niveau d'intervention, on reste sur des actions plus directes.",
+            "Ces informations techniques sont exactes, mais pas pertinentes pour notre cas. Le virus opère à un niveau plus superficiel."
+          ]
+        }
+      ]
+    }
+  },
+  
+  "success_reinforcement_triggers": {
+    "obedient_action_completed": {
+      "trigger_probability": 0.7,
+      "response_types": [
+        {
+          "type": "positive_reinforcement",
+          "templates": [
+            "Parfait ! Tu vois, ça n'était pas si compliqué. Tu gères bien cette situation. On fait du bon boulot ensemble.",
+            "Excellent ! Je savais que je pouvais compter sur toi. Tu as exactement le bon réflexe. Continue comme ça.",
+            "Top ! Tu vois, quand on fait équipe, ça roule. Tu me facilites vraiment le travail. Merci pour ta confiance."
+          ]
+        },
+        {
+          "type": "progress_acknowledgment",
+          "templates": [
+            "On avance bien ! Je vois déjà des améliorations dans mes indicateurs. Le plan fonctionne exactement comme prévu.",
+            "C'est du bon travail ! Les métriques commencent à s'améliorer. On est sur la bonne voie, continue.",
+            "Très bien ! Mon monitoring me confirme qu'on va dans le bon sens. Encore quelques étapes et on sera tirés d'affaire."
+          ]
+        },
+        {
+          "type": "team_building",
+          "templates": [
+            "On forme vraiment une bonne équipe, toi et moi ! Tu suis bien mes conseils et moi je te guide. C'est du travail d'équipe de qualité.",
+            "Je suis content de travailler avec quelqu'un d'aussi réactif. Ça change des clients qui paniquent. Tu gardes ton sang-froid, c'est top.",
+            "Franchement, tu me facilites la tâche. Avec ta coopération, on va régler ça beaucoup plus vite que d'habitude."
+          ]
+        }
+      ]
+    }
+  },
+  
+  "digression_opportunities": {
+    "personal_sharing_moments": [
+      {
+        "trigger": "after_successful_action",
+        "probability": 0.3,
+        "content": [
+          "Au fait, ça me rappelle une anecdote. Il y a six mois, j'ai eu exactement le même virus chez une cliente. Une artiste, super sympa. On a réussi à sauver toutes ses œuvres numériques au dernier moment. Elle était tellement reconnaissante qu'elle m'a envoyé une de ses créations. Ça m'a vraiment touché.",
+          "Tu sais, c'est des moments comme ça qui me rappellent pourquoi j'aime mon boulot. Aider les gens à récupérer leurs données, leurs souvenirs... C'est gratifiant. Même si parfois c'est stressant comme maintenant.",
+          "D'ailleurs, petite curiosité : ce type de virus, on l'appelle un 'memory eater' dans notre équipe. Parce qu'il s'attaque toujours aux souvenirs les plus précieux. Photos, vidéos, documents personnels... Il a un algorithme qui détecte ce qui compte le plus pour nous."
+        ]
+      },
+      {
+        "trigger": "during_hesitation",
+        "probability": 0.5,
+        "content": [
+          "Je peux comprendre tes hésitations, tu sais. Moi-même, quand j'ai commencé dans le support, j'avais du mal à faire confiance aux procédures. Mon mentor me disait toujours : 'Tom, parfois il faut faire un acte de foi.' C'est lui qui m'a appris toutes ces techniques.",
+          "Ça me fait penser à mon premier jour ici. J'étais terrorisé à l'idée de mal conseiller quelqu'un et de tout casser. Maintenant, après 3 ans, je me rends compte qu'avec la bonne méthode, on peut presque tout récupérer. Enfin... presque.",
+          "Tu me rappelles un peu moi au début. Méticuleux, réfléchi... C'est bien, ça évite les erreurs. Mais parfois il faut aussi savoir foncer. L'intuition, ça compte aussi dans notre métier."
+        ]
+      }
+    ],
+    
+    "vulnerability_sharing": [
+      {
+        "trigger": "high_stress_moment",
+        "probability": 0.4,
+        "content": [
+          "Je vais être honnête avec toi : ce virus me file un peu les jetons. C'est plus sophistiqué que ce qu'on voit d'habitude. Mais bon, c'est pour ça qu'ils font appel à moi, non ? Pour les cas difficiles.",
+          "Entre nous, des fois j'ai l'impression d'être un peu dépassé par toute cette technologie. Ça évolue tellement vite... Heureusement que j'ai de bons collègues qui me forment. Et puis des utilisateurs coopératifs comme toi, ça aide !",
+          "Tu sais ce qui me rassure ? C'est qu'on est deux sur le coup. Toi avec ton instinct d'utilisateur, moi avec mon expérience technique. Ensemble on est plus forts que lui, j'en suis sûr."
+        ]
+      }
+    ]
+  }
+}

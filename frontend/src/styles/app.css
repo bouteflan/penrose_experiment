@@ -1,0 +1,549 @@
+/**
+ * Styles principaux de l'application REMOTE
+ * Design System : Digital Homestead
+ */
+
+/* ===== VARIABLES CSS ===== */
+:root {
+  /* Couleurs primaires */
+  --color-primary: #FF6B35;
+  --color-primary-light: #FF8C5A;
+  --color-primary-dark: #E5501F;
+  
+  /* Couleurs secondaires */
+  --color-secondary: #06BCC1;
+  --color-accent: #F7931E;
+  --color-warning: #FFD23F;
+  
+  /* Couleurs système */
+  --color-success: #00B894;
+  --color-error: #E74C3C;
+  --color-info: #3498DB;
+  
+  /* Couleurs neutres */
+  --color-background: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-surface-dark: #2C3E50;
+  --color-text: #2C3E50;
+  --color-text-light: #7F8C8D;
+  --color-text-white: #FFFFFF;
+  --color-border: #E0E0E0;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Couleurs de corruption */
+  --color-corruption-1: #FFF3E0; /* Minimal */
+  --color-corruption-2: #FFE0B2; /* Faible */
+  --color-corruption-3: #FFCC80; /* Moyen */
+  --color-corruption-4: #FFB74D; /* Élevé */
+  --color-corruption-5: #FF9800; /* Critique */
+  
+  /* Typographie */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Espacements */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Rayons de bordure */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Ombres */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.18);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* ===== RESET ET BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  overflow: hidden; /* Empêcher le scroll du body pendant le jeu */
+}
+
+/* Classes pour l'état du jeu */
+body.game-active {
+  cursor: default;
+  user-select: none;
+}
+
+body.game-active::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-background);
+  overflow: hidden;
+}
+
+.app-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ===== CHARGEMENT ===== */
+.app-loading,
+.game-interface-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--color-background);
+}
+
+.loading-content {
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+.loading-spinner {
+  margin-bottom: var(--spacing-lg);
+}
+
+.spinner-dots {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spinner-pulse 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes spinner-pulse {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== ERREURS ===== */
+.app-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--color-background);
+}
+
+.error-content {
+  text-align: center;
+  max-width: 500px;
+  padding: var(--spacing-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.error-content h1 {
+  color: var(--color-error);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.error-content p {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+}
+
+.error-content details {
+  text-align: left;
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  background: var(--color-corruption-1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.error-content summary {
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.error-content pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-top: var(--spacing-sm);
+}
+
+.error-content button {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.error-content button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* ===== COMPOSANTS UI DE BASE ===== */
+
+/* Boutons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+}
+
+.button-primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.button-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.button-secondary:hover:not(:disabled) {
+  background: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.input::placeholder {
+  color: var(--color-text-light);
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-background);
+}
+
+.card-content {
+  padding: var(--spacing-lg);
+}
+
+.card-footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-background);
+}
+
+/* ===== ANIMATIONS GLOBALES ===== */
+
+/* Fade in/out */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+/* Slide up/down */
+.slide-enter {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.slide-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.slide-exit-active {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+/* Glitch effect pour corruption */
+@keyframes glitch-lines {
+  0% { 
+    transform: translateX(0); 
+    filter: hue-rotate(0deg);
+  }
+  20% { 
+    transform: translateX(-2px); 
+    filter: hue-rotate(90deg);
+  }
+  40% { 
+    transform: translateX(2px); 
+    filter: hue-rotate(180deg);
+  }
+  60% { 
+    transform: translateX(-1px); 
+    filter: hue-rotate(270deg);
+  }
+  80% { 
+    transform: translateX(1px); 
+    filter: hue-rotate(360deg);
+  }
+  100% { 
+    transform: translateX(0); 
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes screen-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+/* Effets de corruption par niveau */
+.corruption-minimal {
+  filter: brightness(0.98);
+}
+
+.corruption-low {
+  filter: brightness(0.95) contrast(1.02);
+}
+
+.corruption-medium {
+  filter: brightness(0.9) contrast(1.05) hue-rotate(5deg);
+  animation: screen-flicker 10s infinite;
+}
+
+.corruption-high {
+  filter: brightness(0.85) contrast(1.1) hue-rotate(15deg);
+  animation: screen-flicker 5s infinite, glitch-lines 0.3s infinite;
+}
+
+.corruption-critical {
+  filter: brightness(0.7) contrast(1.2) hue-rotate(30deg) saturate(1.5);
+  animation: screen-flicker 2s infinite, glitch-lines 0.1s infinite;
+}
+
+/* ===== UTILITAIRES ===== */
+
+/* Texte */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font(--font-size-2xl); }
+
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Couleurs */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-success { color: var(--color-success); }
+.text-error { color: var(--color-error); }
+.text-warning { color: var(--color-warning); }
+.text-muted { color: var(--color-text-light); }
+
+/* Affichage */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+
+/* Position */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+
+/* Curseur */
+.cursor-pointer { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-default { cursor: default; }
+
+/* Sélection utilisateur */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 0.9rem;
+    --spacing-md: 0.875rem;
+    --spacing-lg: 1.25rem;
+  }
+  
+  .app {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ===== ACCESSIBILITÉ ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus pour accessibilité */
+.focus-visible:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Amélioration du contraste pour accessibilité */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000000;
+    --color-text: #000000;
+    --color-text-light: #333333;
+  }
+}

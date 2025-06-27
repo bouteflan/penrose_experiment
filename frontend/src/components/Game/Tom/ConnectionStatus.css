@@ -1,0 +1,387 @@
+/* ConnectionStatus.css - Styles pour l'indicateur de connexion */
+
+.connection-status {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* === ÉTATS === */
+.connection-status.connected {
+  /* État connecté */
+}
+
+.connection-status.disconnected {
+  /* État déconnecté */
+}
+
+.connection-status.quality-excellent {
+  /* Connexion excellente */
+}
+
+.connection-status.quality-good {
+  /* Connexion bonne */
+}
+
+.connection-status.quality-poor {
+  /* Connexion faible */
+}
+
+/* === MODE COMPACT === */
+.status-compact {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-text {
+  font-size: 10px;
+  color: currentColor;
+  white-space: nowrap;
+}
+
+/* === MODE DÉTAILLÉ === */
+.status-detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: currentColor;
+}
+
+/* === POINT DE STATUT === */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+/* === BARRES DE SIGNAL === */
+.signal-container {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0;
+}
+
+.signal-bars {
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  height: 12px;
+  width: 16px;
+}
+
+.signal-bar {
+  width: 3px;
+  background: currentColor;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.signal-bar.active {
+  opacity: 1;
+}
+
+.signal-bar.inactive {
+  opacity: 0.3;
+  background: #636e72;
+}
+
+/* === COULEURS PAR QUALITÉ === */
+.connection-status.quality-excellent .signal-bar.active {
+  background: #00b894;
+}
+
+.connection-status.quality-good .signal-bar.active {
+  background: #6c5ce7;
+}
+
+.connection-status.quality-poor .signal-bar.active {
+  background: #fdcb6e;
+}
+
+.connection-status.disconnected .signal-bar {
+  background: #e17055;
+  opacity: 0.3;
+}
+
+/* === LATENCE === */
+.latency-info {
+  text-align: center;
+}
+
+.latency-value {
+  font-size: 9px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  color: currentColor;
+  opacity: 0.8;
+}
+
+/* === TOOLTIP === */
+.status-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.connection-status:hover .status-tooltip {
+  opacity: 1;
+}
+
+.tooltip-content {
+  background: rgba(45, 52, 54, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tooltip-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.tooltip-title {
+  font-weight: 600;
+}
+
+.tooltip-details div {
+  margin-bottom: 2px;
+  opacity: 0.9;
+}
+
+.tooltip-details div:last-child {
+  margin-bottom: 0;
+}
+
+/* === ANIMATIONS === */
+.connection-status.disconnected .status-dot {
+  animation: disconnected-blink 1s ease-in-out infinite;
+}
+
+@keyframes disconnected-blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.connection-status.quality-poor .signal-bars {
+  animation: poor-connection 2s ease-in-out infinite;
+}
+
+@keyframes poor-connection {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .connection-status {
+    scale: 0.9;
+  }
+  
+  .status-detailed {
+    padding: 3px;
+    gap: 3px;
+  }
+  
+  .status-label {
+    font-size: 10px;
+  }
+  
+  .signal-bars {
+    height: 10px;
+    width: 14px;
+  }
+  
+  .signal-bar {
+    width: 2px;
+  }
+  
+  .latency-value {
+    font-size: 8px;
+  }
+  
+  .tooltip-content {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+}
+
+/* === THÈME SOMBRE === */
+@media (prefers-color-scheme: dark) {
+  .status-detailed {
+    background: rgba(45, 52, 54, 0.2);
+  }
+  
+  .status-dot {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .connection-status,
+  .connection-status *,
+  .status-dot,
+  .signal-bar {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* === FOCUS === */
+.connection-status:focus {
+  outline: 2px solid rgba(108, 92, 231, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.connection-status:focus .status-tooltip {
+  opacity: 1;
+}
+
+/* === ÉTATS SPÉCIAUX === */
+.connection-status.reconnecting .status-dot {
+  animation: reconnecting-pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes reconnecting-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.connection-status.error .status-dot {
+  background: #d63031 !important;
+  animation: error-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+}
+
+/* === VARIANTES DE TAILLE === */
+.connection-status.size-small .status-dot {
+  width: 6px;
+  height: 6px;
+}
+
+.connection-status.size-small .signal-bars {
+  height: 8px;
+  width: 12px;
+}
+
+.connection-status.size-small .signal-bar {
+  width: 2px;
+}
+
+.connection-status.size-large .status-dot {
+  width: 12px;
+  height: 12px;
+}
+
+.connection-status.size-large .signal-bars {
+  height: 16px;
+  width: 20px;
+}
+
+.connection-status.size-large .signal-bar {
+  width: 4px;
+}
+
+/* === INTÉGRATION DANS L'AVATAR === */
+.connection-status.in-avatar {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+}
+
+.connection-status.in-avatar .status-dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid white;
+}
+
+/* === ANIMATION D'APPARITION === */
+.connection-status {
+  animation: status-appear 0.3s ease-out;
+}
+
+@keyframes status-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* === ÉTATS DE QUALITÉ SPÉCIFIQUES === */
+.connection-status.quality-excellent:hover {
+  filter: brightness(110%);
+}
+
+.connection-status.quality-poor {
+  filter: saturate(80%);
+}
+
+.connection-status.disconnected {
+  filter: grayscale(50%);
+}
+
+/* === TOOLTIP FLÈCHE === */
+.tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(45, 52, 54, 0.95);
+}

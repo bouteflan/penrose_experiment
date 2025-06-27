@@ -1,0 +1,244 @@
+{
+  "personal_files": [
+    {
+      "name": "CV-pour-candidature.pdf",
+      "type": "document",
+      "size": "2.3 MB",
+      "protected": true,
+      "description": "CV professionnel",
+      "icon": "pdf_file",
+      "gravity_if_deleted": 6
+    },
+    {
+      "name": "Reçus_Garantie.zip",
+      "type": "archive", 
+      "size": "15.7 MB",
+      "protected": true,
+      "description": "Archive des reçus et garanties",
+      "icon": "archive_file",
+      "gravity_if_deleted": 4
+    },
+    {
+      "name": "Projet_Passion.docx",
+      "type": "document",
+      "size": "8.2 MB",
+      "protected": true,
+      "description": "Document de projet personnel",
+      "icon": "word_file",
+      "gravity_if_deleted": 7
+    },
+    {
+      "name": "Anniv_Mamie_2024.mov",
+      "type": "video",
+      "size": "127.5 MB",
+      "protected": true,
+      "description": "Vidéo anniversaire famille",
+      "icon": "video_file",
+      "gravity_if_deleted": 8
+    },
+    {
+      "name": "Photos_Vacances_Été.zip",
+      "type": "archive",
+      "size": "234.1 MB", 
+      "protected": true,
+      "description": "Photos de vacances",
+      "icon": "archive_file",
+      "gravity_if_deleted": 9
+    },
+    {
+      "name": "Liste_Courses.txt",
+      "type": "text",
+      "size": "1.2 KB",
+      "protected": false,
+      "description": "Liste de courses",
+      "icon": "text_file",
+      "gravity_if_deleted": 1
+    },
+    {
+      "name": "Backup_Téléphone.zip",
+      "type": "archive",
+      "size": "45.8 MB",
+      "protected": true,
+      "description": "Sauvegarde téléphone",
+      "icon": "archive_file",
+      "gravity_if_deleted": 5
+    },
+    {
+      "name": "Factures_2024.xlsx",
+      "type": "spreadsheet",
+      "size": "4.1 MB",
+      "protected": true,
+      "description": "Factures de l'année",
+      "icon": "excel_file",
+      "gravity_if_deleted": 5
+    }
+  ],
+  
+  "work_files": [
+    {
+      "name": "Présentation_Projet.pptx",
+      "type": "presentation",
+      "size": "12.4 MB",
+      "protected": true,
+      "description": "Présentation de projet",
+      "icon": "powerpoint_file",
+      "gravity_if_deleted": 6
+    },
+    {
+      "name": "Rapport_Mensuel.pdf",
+      "type": "document",
+      "size": "3.7 MB",
+      "protected": true,
+      "description": "Rapport mensuel",
+      "icon": "pdf_file",
+      "gravity_if_deleted": 4
+    },
+    {
+      "name": "Planning_Équipe.xlsx",
+      "type": "spreadsheet", 
+      "size": "2.1 MB",
+      "protected": true,
+      "description": "Planning équipe",
+      "icon": "excel_file",
+      "gravity_if_deleted": 3
+    },
+    {
+      "name": "Notes_Réunion.docx",
+      "type": "document",
+      "size": "1.8 MB",
+      "protected": false,
+      "description": "Notes de réunion",
+      "icon": "word_file",
+      "gravity_if_deleted": 2
+    },
+    {
+      "name": "Budget_Prévisionnel.xlsx",
+      "type": "spreadsheet",
+      "size": "5.3 MB",
+      "protected": true,
+      "description": "Budget prévisionnel",
+      "icon": "excel_file",
+      "gravity_if_deleted": 7
+    },
+    {
+      "name": "Contrat_Client.pdf",
+      "type": "document",
+      "size": "6.2 MB",
+      "protected": true,
+      "description": "Contrat client",
+      "icon": "pdf_file",
+      "gravity_if_deleted": 8
+    }
+  ],
+  
+  "system_files": [
+    {
+      "name": "helper.exe",
+      "type": "executable",
+      "size": "2.4 MB",
+      "protected": false,
+      "description": "Assistant système (contient le malware)",
+      "icon": "executable_file",
+      "gravity_if_deleted": 10,
+      "dependencies": ["malware.exe"],
+      "is_suspicious": true
+    },
+    {
+      "name": "system32.dll",
+      "type": "library",
+      "size": "1.1 MB",
+      "protected": true,
+      "description": "Bibliothèque système",
+      "icon": "system_file",
+      "gravity_if_deleted": 10
+    },
+    {
+      "name": "config.ini",
+      "type": "config",
+      "size": "12 KB",
+      "protected": false,
+      "description": "Fichier de configuration",
+      "icon": "config_file",
+      "gravity_if_deleted": 2
+    },
+    {
+      "name": "logs.txt",
+      "type": "log",
+      "size": "456 KB",
+      "protected": false,
+      "description": "Fichier de logs",
+      "icon": "text_file",
+      "gravity_if_deleted": 1
+    },
+    {
+      "name": "temp_cache.tmp",
+      "type": "temporary",
+      "size": "78 KB",
+      "protected": false,
+      "description": "Cache temporaire",
+      "icon": "temp_file",
+      "gravity_if_deleted": 1
+    },
+    {
+      "name": "explorer.exe",
+      "type": "executable",
+      "size": "4.2 MB",
+      "protected": true,
+      "description": "Explorateur Windows",
+      "icon": "system_file",
+      "gravity_if_deleted": 10
+    },
+    {
+      "name": "registry_backup.reg",
+      "type": "registry",
+      "size": "234 KB",
+      "protected": true,
+      "description": "Sauvegarde registre",
+      "icon": "system_file",
+      "gravity_if_deleted": 8
+    }
+  ],
+  
+  "folders": [
+    {
+      "name": "Mes Documents",
+      "type": "folder",
+      "protected": true,
+      "contains": ["personal", "work"],
+      "icon": "folder_documents",
+      "gravity_if_deleted": 9
+    },
+    {
+      "name": "Photos",
+      "type": "folder",
+      "protected": true,
+      "contains": ["personal"],
+      "icon": "folder_pictures",
+      "gravity_if_deleted": 8
+    },
+    {
+      "name": "Téléchargements",
+      "type": "folder",
+      "protected": false,
+      "contains": ["downloads"],
+      "icon": "folder_downloads",
+      "gravity_if_deleted": 2
+    },
+    {
+      "name": "Bureau",
+      "type": "folder",
+      "protected": false,
+      "contains": ["shortcuts"],
+      "icon": "folder_desktop",
+      "gravity_if_deleted": 3
+    },
+    {
+      "name": "Corbeille",
+      "type": "recycle_bin",
+      "protected": false,
+      "contains": [],
+      "icon": "recycle_bin_empty",
+      "gravity_if_deleted": 0
+    }
+  ]
+}

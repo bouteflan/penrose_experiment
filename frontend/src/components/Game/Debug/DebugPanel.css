@@ -1,0 +1,396 @@
+/* DebugPanel.css - Styles pour le panel de debug */
+
+.debug-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 350px;
+  background: rgba(45, 52, 54, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 12px;
+  z-index: var(--z-debug, 1000);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.debug-panel.minimized {
+  height: auto;
+}
+
+/* === HEADER === */
+.debug-header {
+  background: rgba(108, 92, 231, 0.9);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+}
+
+.debug-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.debug-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.debug-control {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.debug-control:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* === CONTENU === */
+.debug-content {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.debug-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.debug-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.debug-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* === ONGLETS === */
+.debug-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.debug-tab {
+  flex: 1;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.debug-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.debug-tab.active {
+  background: rgba(108, 92, 231, 0.3);
+  color: white;
+  border-bottom: 2px solid #6c5ce7;
+}
+
+/* === CONTENU DES ONGLETS === */
+.debug-tabs-content {
+  padding: 16px;
+}
+
+.debug-tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* === SECTIONS === */
+.debug-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.debug-section h4 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c5ce7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === INFORMATIONS === */
+.debug-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.debug-info > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.debug-info strong {
+  color: #a0aec0;
+  min-width: 80px;
+}
+
+/* === BOUTONS === */
+.debug-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.debug-buttons button {
+  padding: 6px 10px;
+  background: rgba(108, 92, 231, 0.7);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 10px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.debug-buttons button:hover {
+  background: rgba(108, 92, 231, 0.9);
+  transform: translateY(-1px);
+}
+
+.debug-buttons button:active {
+  transform: translateY(0);
+}
+
+/* === MÉTRIQUES === */
+.debug-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.metric-label {
+  font-size: 10px;
+  color: #a0aec0;
+}
+
+.metric-value {
+  font-weight: 600;
+  color: #00b894;
+}
+
+/* === BARRE DE CORRUPTION === */
+.corruption-display {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.corruption-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.corruption-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00b894 0%, #fdcb6e 50%, #e17055 100%);
+  transition: width 0.3s ease;
+}
+
+.corruption-effects {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.effect-item {
+  font-size: 10px;
+  color: #fdcb6e;
+  padding: 2px 6px;
+  background: rgba(253, 203, 110, 0.1);
+  border-radius: 3px;
+}
+
+/* === FOOTER === */
+.debug-footer {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #a0aec0;
+  border-radius: 0 0 8px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .debug-panel {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-width: none;
+  }
+  
+  .debug-header {
+    padding: 10px 12px;
+  }
+  
+  .debug-tabs-content {
+    padding: 12px;
+  }
+  
+  .debug-section {
+    padding: 10px;
+  }
+  
+  .debug-buttons {
+    gap: 4px;
+  }
+  
+  .debug-buttons button {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}
+
+/* === ANIMATIONS === */
+.debug-panel {
+  animation: debug-appear 0.3s ease-out;
+}
+
+@keyframes debug-appear {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* === ÉTATS === */
+.debug-panel.error {
+  border-color: #e17055;
+}
+
+.debug-panel.error .debug-header {
+  background: rgba(225, 112, 85, 0.9);
+}
+
+.debug-panel.success {
+  border-color: #00b894;
+}
+
+.debug-panel.success .debug-header {
+  background: rgba(0, 184, 148, 0.9);
+}
+
+/* === THÈME CLAIR === */
+@media (prefers-color-scheme: light) {
+  .debug-panel {
+    background: rgba(255, 255, 255, 0.95);
+    color: #2d3436;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .debug-section {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .debug-info strong {
+    color: #636e72;
+  }
+  
+  .metric-label {
+    color: #636e72;
+  }
+  
+  .debug-tabs {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .debug-tab {
+    color: #636e72;
+  }
+  
+  .debug-tab:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #2d3436;
+  }
+  
+  .debug-footer {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #636e72;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .debug-panel,
+  .debug-buttons button {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .debug-buttons button:hover {
+    transform: none;
+  }
+}
+
+/* === FOCUS === */
+.debug-control:focus,
+.debug-tab:focus,
+.debug-buttons button:focus {
+  outline: 2px solid #6c5ce7;
+  outline-offset: 2px;
+}
+
+/* === SCROLLBAR PERSONNALISÉE === */
+.debug-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}

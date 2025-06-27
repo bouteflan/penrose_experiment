@@ -1,0 +1,44 @@
+# FastAPI et dépendances web
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+websockets==12.0
+
+# Base de données et ORM
+sqlalchemy==2.0.23
+alembic==1.12.1
+
+# Validation des données
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Intégration OpenAI
+openai==1.3.7
+tiktoken==0.5.2
+
+# Utilitaires
+python-dotenv==1.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+aiofiles==23.2.1
+
+# Gestion des dates et temps
+python-dateutil==2.8.2
+
+# Logging et monitoring
+structlog==23.2.0
+
+# JSON et sérialisation
+orjson==3.9.10
+
+# UUID et identifiants
+uuid==1.30
+
+# Analyse des données expérimentales
+numpy==1.25.2
+pandas==2.1.4
+
+# Tests et développement
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2

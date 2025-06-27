@@ -1,0 +1,366 @@
+/* CorruptionOverlay.css - Styles pour les effets de corruption */
+
+.corruption-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: var(--z-corruption, 500);
+  overflow: hidden;
+}
+
+.corruption-overlay.critical {
+  animation: critical-system-failure 0.2s ease-in-out infinite;
+}
+
+@keyframes critical-system-failure {
+  0%, 100% { 
+    filter: none;
+  }
+  25% { 
+    filter: invert(10%) hue-rotate(90deg);
+  }
+  50% { 
+    filter: invert(20%) hue-rotate(180deg) saturate(150%);
+  }
+  75% { 
+    filter: invert(5%) hue-rotate(270deg);
+  }
+}
+
+/* === COUCHES D'EFFETS === */
+.dead-pixels-layer,
+.scanlines-layer,
+.glitch-lines-layer,
+.corruption-blocks-layer,
+.color-distortion-layer,
+.noise-layer,
+.corruption-filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* === PIXELS MORTS === */
+.dead-pixels-layer {
+  z-index: 10;
+}
+
+.dead-pixel {
+  position: absolute;
+  background: #000;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* === SCANLINES === */
+.scanlines-layer {
+  z-index: 5;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  animation: scanlines-move 0.1s linear infinite;
+}
+
+@keyframes scanlines-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+}
+
+/* === LIGNES DE GLITCH === */
+.glitch-lines-layer {
+  z-index: 15;
+}
+
+.glitch-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+/* === BLOCS DE CORRUPTION === */
+.corruption-blocks-layer {
+  z-index: 12;
+}
+
+.corruption-block {
+  position: absolute;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.3) 0px,
+    rgba(255, 0, 0, 0.3) 2px,
+    rgba(0, 255, 0, 0.3) 2px,
+    rgba(0, 255, 0, 0.3) 4px,
+    rgba(0, 0, 255, 0.3) 4px,
+    rgba(0, 0, 255, 0.3) 6px
+  );
+  mix-blend-mode: overlay;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* === DISTORSION DE COULEUR === */
+.color-distortion-layer {
+  z-index: 8;
+}
+
+.color-shift {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+.color-shift.red {
+  background: radial-gradient(
+    circle at 30% 70%,
+    rgba(255, 0, 0, 0.2) 0%,
+    transparent 50%
+  );
+}
+
+.color-shift.green {
+  background: radial-gradient(
+    circle at 70% 30%,
+    rgba(0, 255, 0, 0.2) 0%,
+    transparent 50%
+  );
+}
+
+.color-shift.blue {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 255, 0.2) 0%,
+    transparent 50%
+  );
+}
+
+/* === BRUIT === */
+.noise-layer {
+  z-index: 3;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0,0,0,0.1) 0%, transparent 50%);
+  background-size: 100px 100px, 150px 150px, 200px 200px;
+  animation: noise-animation 0.1s linear infinite;
+}
+
+@keyframes noise-animation {
+  0% { 
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+  }
+  25% { 
+    background-position: 10% 10%, 20% 5%, 15% 15%;
+  }
+  50% { 
+    background-position: 20% 5%, 15% 15%, 30% 10%;
+  }
+  75% { 
+    background-position: 15% 15%, 30% 10%, 5% 25%;
+  }
+  100% { 
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+  }
+}
+
+/* === FILTRE GÉNÉRAL === */
+.corruption-filter {
+  z-index: 1;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.05) 0%,
+    rgba(0, 255, 0, 0.05) 33%,
+    rgba(0, 0, 255, 0.05) 66%,
+    rgba(255, 0, 0, 0.05) 100%
+  );
+  mix-blend-mode: overlay;
+}
+
+/* === EFFETS SPÉCIFIQUES PAR NIVEAU === */
+.corruption-overlay[data-level="low"] {
+  /* Corruption légère */
+}
+
+.corruption-overlay[data-level="medium"] {
+  animation: medium-corruption 1s ease-in-out infinite;
+}
+
+@keyframes medium-corruption {
+  0%, 100% { 
+    filter: none;
+  }
+  50% { 
+    filter: hue-rotate(10deg) saturate(110%);
+  }
+}
+
+.corruption-overlay[data-level="high"] {
+  animation: high-corruption 0.5s ease-in-out infinite;
+}
+
+@keyframes high-corruption {
+  0%, 100% { 
+    filter: none;
+    transform: translateX(0);
+  }
+  25% { 
+    filter: hue-rotate(45deg) saturate(130%);
+    transform: translateX(-1px);
+  }
+  75% { 
+    filter: hue-rotate(-45deg) saturate(130%);
+    transform: translateX(1px);
+  }
+}
+
+.corruption-overlay[data-level="critical"] {
+  animation: critical-corruption 0.1s ease-in-out infinite;
+}
+
+@keyframes critical-corruption {
+  0% { 
+    filter: none;
+    transform: translateX(0) scaleX(1);
+  }
+  20% { 
+    filter: hue-rotate(180deg) invert(20%) saturate(200%);
+    transform: translateX(-2px) scaleX(1.02);
+  }
+  40% { 
+    filter: hue-rotate(-180deg) invert(40%) saturate(300%);
+    transform: translateX(2px) scaleX(0.98);
+  }
+  60% { 
+    filter: hue-rotate(90deg) invert(10%) saturate(150%);
+    transform: translateX(-1px) scaleX(1.01);
+  }
+  80% { 
+    filter: hue-rotate(-90deg) invert(30%) saturate(250%);
+    transform: translateX(1px) scaleX(0.99);
+  }
+  100% { 
+    filter: none;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .corruption-overlay {
+    /* Réduire l'intensité sur mobile pour les performances */
+  }
+  
+  .noise-layer {
+    background-size: 50px 50px, 75px 75px, 100px 100px;
+  }
+  
+  .dead-pixel {
+    max-width: 2px;
+    max-height: 2px;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .corruption-overlay,
+  .corruption-overlay *,
+  .scanlines-layer,
+  .noise-layer,
+  .color-shift,
+  .glitch-line,
+  .corruption-block {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* === PERFORMANCES === */
+.corruption-overlay {
+  will-change: filter, transform;
+  transform: translateZ(0); /* Force compositing layer */
+}
+
+.dead-pixels-layer,
+.scanlines-layer,
+.glitch-lines-layer,
+.corruption-blocks-layer {
+  will-change: transform, opacity;
+}
+
+/* === ÉTATS DE VISIBILITÉ === */
+.corruption-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.corruption-overlay.fadeIn {
+  animation: corruption-fade-in 1s ease-out;
+}
+
+@keyframes corruption-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.corruption-overlay.fadeOut {
+  animation: corruption-fade-out 1s ease-out forwards;
+}
+
+@keyframes corruption-fade-out {
+  from {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+/* === THÈME SOMBRE === */
+@media (prefers-color-scheme: dark) {
+  .dead-pixel {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+  
+  .scanline {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .corruption-filter {
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(200, 200, 200, 0.03) 50%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+  }
+}

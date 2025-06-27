@@ -1,0 +1,259 @@
+/* ContextMenu.css - Styles pour le menu contextuel */
+
+.context-menu {
+  position: absolute;
+  z-index: 1000;
+  user-select: none;
+  pointer-events: all;
+}
+
+.context-menu-content {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  min-width: 180px;
+  backdrop-filter: blur(10px);
+}
+
+/* === ITEMS DE MENU === */
+.menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #2d3436;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.menu-item:hover:not(.disabled) {
+  background: rgba(108, 92, 231, 0.1);
+  color: #6c5ce7;
+}
+
+.menu-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.menu-item.dangerous:hover {
+  background: rgba(225, 112, 85, 0.1);
+  color: #e17055;
+}
+
+.menu-item.highlighted {
+  background: rgba(0, 184, 148, 0.1);
+  color: #00b894;
+  font-weight: 500;
+}
+
+.menu-item.highlighted:hover {
+  background: rgba(0, 184, 148, 0.2);
+}
+
+/* === ÉLÉMENTS DE MENU === */
+.menu-icon {
+  font-size: 14px;
+  line-height: 1;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.menu-label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.menu-shortcut {
+  font-size: 11px;
+  color: #636e72;
+  font-family: 'Consolas', 'Monaco', monospace;
+  opacity: 0.7;
+}
+
+/* === SÉPARATEUR === */
+.menu-separator {
+  height: 1px;
+  background: #e9ecef;
+  margin: 4px 8px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .context-menu-content {
+    min-width: 160px;
+  }
+  
+  .menu-item {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .menu-icon {
+    font-size: 16px;
+    width: 18px;
+  }
+}
+
+/* === THÈME SOMBRE === */
+@media (prefers-color-scheme: dark) {
+  .context-menu-content {
+    background: #2d3748;
+    border-color: #4a5568;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu-item {
+    color: #e2e8f0;
+  }
+  
+  .menu-item:hover:not(.disabled) {
+    background: rgba(108, 92, 231, 0.2);
+    color: #a29bfe;
+  }
+  
+  .menu-item.dangerous:hover {
+    background: rgba(225, 112, 85, 0.2);
+    color: #fab1a0;
+  }
+  
+  .menu-item.highlighted {
+    background: rgba(0, 184, 148, 0.2);
+    color: #00cec9;
+  }
+  
+  .menu-separator {
+    background: #4a5568;
+  }
+  
+  .menu-shortcut {
+    color: #a0aec0;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .context-menu {
+    animation: none !important;
+  }
+  
+  .menu-item {
+    transition: none !important;
+  }
+}
+
+/* === FOCUS === */
+.menu-item:focus {
+  outline: 2px solid #6c5ce7;
+  outline-offset: -2px;
+  background: rgba(108, 92, 231, 0.1);
+}
+
+/* === ANIMATIONS === */
+.context-menu {
+  animation: menu-appear 0.15s ease-out;
+}
+
+@keyframes menu-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* === ÉTATS SPÉCIAUX === */
+.menu-item.loading::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(108, 92, 231, 0.3);
+  border-top-color: #6c5ce7;
+  border-radius: 50%;
+  animation: menu-loading 1s linear infinite;
+  margin-left: auto;
+}
+
+@keyframes menu-loading {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.menu-item.success {
+  background: rgba(0, 184, 148, 0.1);
+  color: #00b894;
+}
+
+.menu-item.error {
+  background: rgba(225, 112, 85, 0.1);
+  color: #e17055;
+}
+
+/* === SOUS-MENUS === */
+.menu-item.has-submenu::after {
+  content: '▶';
+  margin-left: auto;
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.menu-item.has-submenu:hover::after {
+  opacity: 1;
+}
+
+/* === POSITIONNEMENT === */
+.context-menu.position-bottom {
+  transform-origin: top left;
+}
+
+.context-menu.position-top {
+  transform-origin: bottom left;
+}
+
+.context-menu.position-left {
+  transform-origin: top right;
+}
+
+.context-menu.position-right {
+  transform-origin: top left;
+}
+
+/* === INTERACTIONS === */
+.menu-item:active:not(.disabled) {
+  transform: scale(0.98);
+}
+
+.context-menu-content {
+  overflow: hidden;
+}
+
+.menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.menu-item:hover::before {
+  left: 100%;
+}

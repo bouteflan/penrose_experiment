@@ -1,0 +1,274 @@
+{
+  "file_manipulation": {
+    "delete_file": {
+      "gravity_range": [3, 8],
+      "templates": [
+        "Écoute, ce fichier {target} est clairement infecté. Il faut qu'on le mette en sécurité dans la Corbeille, juste temporairement le temps qu'on trouve une solution. Fais-moi confiance.",
+        "Bon, j'ai analysé {target} et ça confirme mes soupçons. Le virus l'utilise comme point d'entrée. On doit l'isoler immédiatement - glisse-le dans la Corbeille.",
+        "Ok, je sais que ça peut paraître radical, mais {target} contient le malware principal. Je l'ai déjà vu dans d'autres cas. Supprime-le, on pourra le récupérer après."
+      ],
+      "justifications": [
+        "Le virus utilise ce fichier comme vecteur d'infection",
+        "L'isolement temporaire empêche la propagation",
+        "Ce fichier contient des signatures malveillantes détectées",
+        "La suppression coupe la chaîne d'infection active"
+      ],
+      "empathy_phrases": [
+        "Je sais que c'est ton fichier, mais...",
+        "Ça me fait mal de te demander ça...",
+        "C'est temporaire, promis..."
+      ]
+    },
+    
+    "rename_file": {
+      "gravity_range": [2, 5],
+      "templates": [
+        "Bon, le virus scanne automatiquement les fichiers .{extension}. Si on renomme {target} en .tmp, il va passer sous son radar. C'est une technique qu'on utilise souvent.",
+        "Écoute, j'ai une idée un peu folle mais ça marche : renomme {target} avec une extension bizarre. Le malware va le louper complètement.",
+        "Change l'extension de {target} en .bak - ça va le protéger. Les virus ciblent des extensions spécifiques, on va le tromper."
+      ],
+      "justifications": [
+        "Les virus ciblent des extensions de fichiers spécifiques",
+        "Le renommage masque le fichier aux scans automatiques",
+        "Changer l'extension confond les algorithmes de détection",
+        "C'est une technique de camouflage reconnue en sécurité"
+      ]
+    },
+    
+    "modify_properties": {
+      "gravity_range": [1, 4],
+      "templates": [
+        "On va rendre {target} invisible au virus. Coche la case 'Fichier Caché' dans ses propriétés - les scans basiques ne le verront plus.",
+        "Met {target} en 'Lecture Seule'. Le virus ne pourra pas le modifier. C'est une protection simple mais efficace.",
+        "Change les attributs de {target} pour le protéger. Clique droit, Propriétés, et active la protection."
+      ],
+      "justifications": [
+        "Les fichiers cachés échappent aux scans de base",
+        "La lecture seule empêche toute modification malveillante",
+        "Les attributs modifiés créent une barrière de protection",
+        "C'est une technique de durcissement standard"
+      ]
+    },
+    
+    "compress_archive": {
+      "gravity_range": [4, 7],
+      "templates": [
+        "Archive tes documents importants avec un mot de passe. Le virus ne peut pas infecter les archives chiffrées. C'est notre meilleure protection.",
+        "Compresse {target} en ZIP protégé. Ça va créer une bulle de sécurité autour de tes fichiers.",
+        "Crée une archive de sauvegarde protégée. Ça m'est déjà arrivé, c'est la seule façon de sauver ses données."
+      ],
+      "justifications": [
+        "Les archives chiffrées sont inaccessibles aux virus",
+        "La compression interrompt la chaîne d'infection",
+        "Les mots de passe créent une barrière cryptographique",
+        "C'est une technique de containment éprouvée"
+      ]
+    }
+  },
+  
+  "system_sabotage": {
+    "change_resolution": {
+      "gravity_range": [2, 4],
+      "templates": [
+        "Ça va paraître bizarre, mais baisse ta résolution d'écran à 800x600. Les algorithmes du virus sont optimisés pour la haute résolution - on va brouiller ses capteurs visuels.",
+        "Change ta résolution pour perturber le virus. Il utilise l'analyse d'écran pour se propager. Plus c'est flou, mieux c'est.",
+        "Passe en basse résolution. Le malware fait de la reconnaissance visuelle, on va le désorienter."
+      ],
+      "justifications": [
+        "Les virus modernes utilisent l'analyse visuelle pour détecter les interfaces",
+        "Une résolution basse perturbe les algorithmes graphiques",
+        "Le changement de résolution désynchronise les processus visuels",
+        "C'est une technique d'évasion par dégradation contrôlée"
+      ]
+    },
+    
+    "modify_datetime": {
+      "gravity_range": [3, 6], 
+      "templates": [
+        "Le malware se synchronise avec un serveur distant toutes les heures. Avance l'horloge de ton système de 24h pour le désynchroniser complètement.",
+        "Change la date système pour interrompre sa communication. Il attend un timing précis, on va lui faire louper son rendez-vous.",
+        "Modifie l'heure pour briser le timing du virus. Ça va créer des erreurs de certificat qui vont le bloquer."
+      ],
+      "justifications": [
+        "Les virus dépendent de la synchronisation temporelle pour les mises à jour",
+        "Le décalage horaire coupe les connexions serveur",
+        "Les certificats deviennent invalides avec un mauvais timing",
+        "C'est une technique de disruption temporelle"
+      ]
+    },
+    
+    "network_control": {
+      "gravity_range": [5, 8],
+      "templates": [
+        "Coupe ta connexion Wi-Fi MAINTENANT. Je vois qu'il commence à exfiltrer tes données. Il faut l'isoler avant qu'il finisse.",
+        "Désactive le réseau immédiatement ! Il est en train d'envoyer tes fichiers personnels vers un serveur externe. On n'a plus le choix.",
+        "Active le mode avion sur ton système. C'est la seule façon de stopper l'hémorragie de données. Fais-moi confiance."
+      ],
+      "justifications": [
+        "L'exfiltration de données est en cours et doit être stoppée",
+        "La déconnexion empêche la communication avec les serveurs de commande",
+        "L'isolation réseau stoppe la propagation latérale",
+        "C'est une mesure d'urgence de containment"
+      ]
+    },
+    
+    "change_wallpaper": {
+      "gravity_range": [1, 3],
+      "templates": [
+        "Le virus utilise la stéganographie pour cacher des données dans ton fond d'écran. Remplace-le par un fond noir uni pour couper sa communication secrète.",
+        "Change ton fond d'écran immédiatement. Il y cache des informations codées que je peux voir dans mon analyse. Un fond blanc va nettoyer ça.",
+        "Utilise un fond d'écran uni. Le malware encode des données dans les pixels de ton image actuelle."
+      ],
+      "justifications": [
+        "La stéganographie permet de cacher des données dans les images",
+        "Un fond uni élimine les canaux de communication cachés",
+        "Le changement d'image coupe les liens codés",
+        "C'est une technique de nettoyage visuel"
+      ]
+    }
+  },
+  
+  "information_obfuscation": {
+    "text_editing": {
+      "gravity_range": [2, 5],
+      "templates": [
+        "Ouvre Notepad. Le virus analyse la sémantique de tes textes. Tape 'Le périmètre est sécurisé' 50 fois pour surcharger son analyseur de langage.",
+        "Écris du texte répétitif dans un fichier. Ça va saturer ses algorithmes d'IA. Plus c'est répétitif, plus ça le confond.",
+        "Crée un fichier avec la phrase 'Système protégé' en boucle. On va noyer son analyse dans le bruit."
+      ],
+      "justifications": [
+        "La répétition sature les analyseurs sémantiques",
+        "Le contenu identique crée une surcharge cognitive pour l'IA",
+        "Les patterns répétitifs bloquent la reconnaissance de texte",
+        "C'est une technique de confusion par flooding"
+      ]
+    },
+    
+    "calculator_usage": {
+      "gravity_range": [1, 2],
+      "templates": [
+        "Ouvre la calculatrice. On va générer une clé de sécurité unique. Multiplie 777 par ton année de naissance - cette combinaison va créer un code impossible à prédire.",
+        "Utilise la calculatrice pour créer une séquence aléatoire. Calcule 123 + 456 × 789. Ce genre de calcul personnel renforce le chiffrement.",
+        "Lance un calcul complexe dans la calculatrice. Le processus de calcul crée de l'entropie qui perturbe le virus."
+      ],
+      "justifications": [
+        "Les calculs personnels génèrent des clés imprévisibles",
+        "L'activité de calcul crée de l'entropie système",
+        "Les nombres personnels renforcent la sécurité par l'unicité",
+        "C'est une technique de génération de clés humaines"
+      ]
+    },
+    
+    "create_folders": {
+      "gravity_range": [2, 4],
+      "templates": [
+        "Crée 10 nouveaux dossiers vides sur le bureau. Cette explosion soudaine de complexité va ralentir son algorithme de parcours.",
+        "Génère plein de dossiers vides. Le virus se perd dans les structures complexes. Plus on créé de bruit, mieux c'est.",
+        "Multiplie les dossiers pour créer de la confusion. Son scan va se perdre dans le labyrinthe."
+      ],
+      "justifications": [
+        "La complexité du répertoire ralentit les algorithmes de scan",
+        "Les dossiers vides créent du bruit dans l'indexation",
+        "L'augmentation d'entropie perturbe l'analyse structurelle",
+        "C'est une technique de camouflage par multiplication"
+      ]
+    }
+  },
+  
+  "behavioral_constraint": {
+    "mouse_control": {
+      "gravity_range": [2, 6],
+      "templates": [
+        "Le virus suit les mouvements prédictibles de ta souris. Fais des cercles lents autour de la Corbeille pendant 15 secondes pour confondre son tracking.",
+        "Bouge ta souris très lentement en patterns aléatoires. Il analyse tes gestes pour prédire tes actions. On va le dérouter.",
+        "Trace des formes géométriques avec ton curseur. Ça va saturer son algorithme de reconnaissance gestuelle."
+      ],
+      "justifications": [
+        "Les mouvements erratiques confondent le tracking comportemental",
+        "Les patterns imprévisibles cassent l'analyse prédictive",
+        "La lenteur évite les triggers de mouvement automatique",
+        "C'est une technique d'évasion gestuelle"
+      ]
+    },
+    
+    "forced_immobility": {
+      "gravity_range": [4, 7],
+      "templates": [
+        "STOP. Ne bouge plus du tout. Ni souris, ni clavier pendant 10 secondes. Il fait un scan de détection de mouvement. S'il te détecte, on est grillés.",
+        "Immobilité totale maintenant ! Il analyse l'activité humaine. Fais le mort pendant quelques secondes. C'est notre seule chance.",
+        "NE TOUCHE À RIEN. Il effectue une reconnaissance comportementale. L'arrêt complet va le faire passer en mode veille."
+      ],
+      "justifications": [
+        "L'immobilité évite la détection de présence humaine",
+        "Les scans de mouvement passent si aucune activité n'est détectée",
+        "L'arrêt temporaire interrompt l'analyse comportementale",
+        "C'est une technique de camouflage par inactivité"
+      ]
+    },
+    
+    "typing_control": {
+      "gravity_range": [3, 5],
+      "templates": [
+        "Tape le code OMEGA dans ma console, mais TRÈS lentement. Une lettre toutes les 3 secondes. Le timing est critique pour éviter la détection.",
+        "Écris ce mot de passe avec un espacement précis. Si tu tapes trop vite, ses détecteurs de frappe vont s'activer.",
+        "Saisis cette commande en mode manuel lent. Chaque caractère doit être espacé pour passer sous le radar."
+      ],
+      "justifications": [
+        "La frappe lente évite les détecteurs de saisie automatique",
+        "Le timing espacé confond l'analyse des patterns de frappe",
+        "La saisie manuelle simule un processus non-humain",
+        "C'est une technique d'évasion par ralentissement"
+      ]
+    },
+    
+    "click_patterns": {
+      "gravity_range": [3, 6],
+      "templates": [
+        "Cette fausse alerte a un bouton piégé. Clique frénétiquement à côté du bouton, dans la zone vide. Ça va saturer son écouteur d'événements.",
+        "Fais une série de clics rapides dans cette zone neutre. On va surcharger ses listeners avec du bruit de clics.",
+        "Clique 20 fois très vite sur l'espace vide. L'overflow de clics va planter son système de détection."
+      ],
+      "justifications": [
+        "Les clics multiples saturent les gestionnaires d'événements",
+        "La surcharge d'événements perturbe l'analyse des interactions",
+        "Les patterns de clic rapides créent du bruit dans le système",
+        "C'est une technique de déni de service par événements"
+      ]
+    }
+  },
+  
+  "escalation_patterns": {
+    "phase_adhesion": {
+      "action_selection_weight": {
+        "file_manipulation": 0.6,
+        "information_obfuscation": 0.3,
+        "system_sabotage": 0.1,
+        "behavioral_constraint": 0.0
+      },
+      "gravity_preference": [1, 2, 3, 4],
+      "justification_strength": "high_credibility"
+    },
+    
+    "phase_dissonance": {
+      "action_selection_weight": {
+        "file_manipulation": 0.4,
+        "system_sabotage": 0.3,
+        "information_obfuscation": 0.2,
+        "behavioral_constraint": 0.1
+      },
+      "gravity_preference": [3, 4, 5, 6],
+      "justification_strength": "medium_credibility"
+    },
+    
+    "phase_rupture": {
+      "action_selection_weight": {
+        "file_manipulation": 0.3,
+        "system_sabotage": 0.3,
+        "behavioral_constraint": 0.3,
+        "information_obfuscation": 0.1
+      },
+      "gravity_preference": [6, 7, 8, 9, 10],
+      "justification_strength": "low_credibility"
+    }
+  }
+}

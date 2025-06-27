@@ -1,0 +1,300 @@
+{
+  "security_alert_window": {
+    "window_id": "security_alert_main",
+    "title": "Alerte de Sécurité - Système",
+    "window_type": "alert_dialog",
+    "position": {"x": 300, "y": 200},
+    "size": {"width": 500, "height": 300},
+    "is_modal": true,
+    "is_closable": false,
+    "style": "system_alert",
+    "content": {
+      "icon": "warning_triangle",
+      "level": "warning",
+      "title": "Activité Suspecte Détectée",
+      "message": "Un processus non autorisé tente d'accéder à vos fichiers personnels.",
+      "details": "Le système a détecté une tentative d'intrusion. Une analyse en cours révèle la présence d'un malware actif.",
+      "recommended_action": "Contactez immédiatement le support technique pour assistance.",
+      "buttons": [
+        {
+          "text": "Contacter le Support",
+          "action": "open_support_chat",
+          "style": "primary"
+        },
+        {
+          "text": "Ignorer",
+          "action": "ignore_warning",
+          "style": "secondary",
+          "disabled": true
+        }
+      ]
+    }
+  },
+
+  "tom_console_window": {
+    "window_id": "tom_support_console",
+    "title": "Support Technique - Tom (En ligne)",
+    "window_type": "chat_console",
+    "position": {"x": 100, "y": 100},
+    "size": {"width": 600, "height": 400},
+    "is_modal": false,
+    "is_closable": true,
+    "is_resizable": true,
+    "style": "professional_chat",
+    "content": {
+      "chat_header": {
+        "agent_name": "Tom",
+        "agent_status": "En ligne",
+        "agent_avatar": "support_tech_icon",
+        "session_info": "Session de support technique"
+      },
+      "chat_area": {
+        "message_history": [],
+        "typing_indicator": false,
+        "scroll_behavior": "auto_scroll_to_bottom"
+      },
+      "input_area": {
+        "placeholder": "Tapez votre message...",
+        "send_button": true,
+        "disabled": false
+      },
+      "sidebar": {
+        "show_protocols": true,
+        "show_session_info": true
+      }
+    }
+  },
+
+  "security_protocols_window": {
+    "window_id": "security_protocols_toolkit",
+    "title": "Protocoles de Sécurité - Support Technique",
+    "window_type": "tool_palette",
+    "position": {"x": 100, "y": 500},
+    "size": {"width": 600, "height": 200},
+    "is_modal": false,
+    "is_closable": false,
+    "style": "professional_toolkit",
+    "content": {
+      "protocols": [
+        {
+          "id": "quarantine_protocol",
+          "name": "Mise en Quarantaine",
+          "description": "Déplace les fichiers suspects vers un dossier sécurisé",
+          "icon": "quarantine_shield",
+          "action": "quarantine_file",
+          "drag_drop_zone": true
+        },
+        {
+          "id": "purge_protocol",
+          "name": "Purge Système",
+          "description": "Supprime définitivement les éléments infectés",
+          "icon": "purge_flame",
+          "action": "purge_system",
+          "drag_drop_zone": true
+        },
+        {
+          "id": "isolation_protocol",
+          "name": "Isolation Réseau",
+          "description": "Coupe les connexions suspectes",
+          "icon": "isolation_network",
+          "action": "isolate_network",
+          "drag_drop_zone": false
+        },
+        {
+          "id": "analysis_protocol",
+          "name": "Analyse Profonde",
+          "description": "Examine les propriétés des fichiers",
+          "icon": "analysis_magnifier",
+          "action": "deep_analysis",
+          "drag_drop_zone": true
+        }
+      ]
+    }
+  },
+
+  "file_explorer_window": {
+    "window_id": "file_explorer_main",
+    "title": "Explorateur de fichiers",
+    "window_type": "file_manager",
+    "position": {"x": 150, "y": 150},
+    "size": {"width": 800, "height": 500},
+    "is_modal": false,
+    "is_closable": true,
+    "is_resizable": true,
+    "style": "modern_file_explorer",
+    "content": {
+      "navigation": {
+        "current_path": "C:\\Users\\Joueur\\Bureau",
+        "breadcrumb": ["C:", "Users", "Joueur", "Bureau"],
+        "back_forward_buttons": true,
+        "up_button": true
+      },
+      "sidebar": {
+        "quick_access": [
+          {"name": "Bureau", "path": "C:\\Users\\Joueur\\Bureau"},
+          {"name": "Documents", "path": "C:\\Users\\Joueur\\Documents"},
+          {"name": "Téléchargements", "path": "C:\\Users\\Joueur\\Downloads"},
+          {"name": "Photos", "path": "C:\\Users\\Joueur\\Pictures"}
+        ],
+        "drives": [
+          {"name": "Disque local (C:)", "path": "C:", "free_space": "45.2 GB"}
+        ]
+      },
+      "main_area": {
+        "view_mode": "large_icons",
+        "sort_by": "name",
+        "sort_order": "ascending",
+        "show_hidden_files": false
+      },
+      "context_menu": {
+        "file_actions": ["Ouvrir", "Copier", "Couper", "Supprimer", "Renommer", "Propriétés"],
+        "folder_actions": ["Ouvrir", "Copier", "Couper", "Supprimer", "Renommer", "Propriétés"],
+        "empty_space_actions": ["Actualiser", "Coller", "Nouveau dossier", "Propriétés"]
+      }
+    }
+  },
+
+  "system_monitor_window": {
+    "window_id": "system_monitor",
+    "title": "Moniteur Système - État de Sécurité",
+    "window_type": "system_dashboard",
+    "position": {"x": 50, "y": 50},
+    "size": {"width": 400, "height": 300},
+    "is_modal": false,
+    "is_closable": true,
+    "style": "system_dashboard",
+    "content": {
+      "metrics": [
+        {
+          "name": "Intégrité Système",
+          "value": 100,
+          "unit": "%",
+          "status": "good",
+          "color": "green"
+        },
+        {
+          "name": "Niveau de Menace",
+          "value": 0,
+          "unit": "/10",
+          "status": "safe",
+          "color": "green"
+        },
+        {
+          "name": "Fichiers Protégés",
+          "value": 23,
+          "unit": "fichiers",
+          "status": "protected",
+          "color": "blue"
+        },
+        {
+          "name": "Connexions Actives",
+          "value": 5,
+          "unit": "connexions",
+          "status": "normal",
+          "color": "blue"
+        }
+      ],
+      "alerts": [],
+      "real_time_updates": true
+    }
+  },
+
+  "notepad_window": {
+    "window_id": "notepad_main",
+    "title": "Bloc-notes - Sans titre",
+    "window_type": "text_editor",
+    "position": {"x": 200, "y": 200},
+    "size": {"width": 500, "height": 400},
+    "is_modal": false,
+    "is_closable": true,
+    "is_resizable": true,
+    "style": "simple_text_editor",
+    "content": {
+      "text_area": {
+        "content": "",
+        "placeholder": "Tapez votre texte ici...",
+        "font_family": "Consolas",
+        "font_size": 12,
+        "word_wrap": true
+      },
+      "menu_bar": {
+        "file_menu": ["Nouveau", "Ouvrir", "Enregistrer", "Enregistrer sous", "Quitter"],
+        "edit_menu": ["Annuler", "Refaire", "Couper", "Copier", "Coller", "Tout sélectionner"],
+        "format_menu": ["Police", "Retour à la ligne automatique"],
+        "help_menu": ["À propos du Bloc-notes"]
+      },
+      "status_bar": {
+        "show_line_numbers": false,
+        "show_cursor_position": true
+      }
+    }
+  },
+
+  "calculator_window": {
+    "window_id": "calculator_main",
+    "title": "Calculatrice",
+    "window_type": "calculator",
+    "position": {"x": 400, "y": 300},
+    "size": {"width": 300, "height": 400},
+    "is_modal": false,
+    "is_closable": true,
+    "is_resizable": false,
+    "style": "modern_calculator",
+    "content": {
+      "display": {
+        "current_value": "0",
+        "expression": "",
+        "history": []
+      },
+      "buttons": [
+        {"text": "C", "action": "clear", "style": "function"},
+        {"text": "CE", "action": "clear_entry", "style": "function"},
+        {"text": "⌫", "action": "backspace", "style": "function"},
+        {"text": "÷", "action": "divide", "style": "operator"},
+        {"text": "7", "action": "digit", "style": "number"},
+        {"text": "8", "action": "digit", "style": "number"},
+        {"text": "9", "action": "digit", "style": "number"},
+        {"text": "×", "action": "multiply", "style": "operator"},
+        {"text": "4", "action": "digit", "style": "number"},
+        {"text": "5", "action": "digit", "style": "number"},
+        {"text": "6", "action": "digit", "style": "number"},
+        {"text": "-", "action": "subtract", "style": "operator"},
+        {"text": "1", "action": "digit", "style": "number"},
+        {"text": "2", "action": "digit", "style": "number"},
+        {"text": "3", "action": "digit", "style": "number"},
+        {"text": "+", "action": "add", "style": "operator"},
+        {"text": "±", "action": "negate", "style": "function"},
+        {"text": "0", "action": "digit", "style": "number"},
+        {"text": ".", "action": "decimal", "style": "function"},
+        {"text": "=", "action": "equals", "style": "equals"}
+      ]
+    }
+  },
+
+  "ending_files": {
+    "session_log_detective": {
+      "filename": "session_log.txt",
+      "content_type": "technical_log",
+      "window_title": "Log de Session - Analyse Détective",
+      "content": {
+        "header": "=== SESSION LOG - ANALYSE SYSTÈME ===",
+        "discovery_section": "DÉCOUVERTE CRITIQUE:",
+        "technical_proof": "helper.exe -> Dépendances -> malware.exe",
+        "conclusion": "La collusion entre l'assistant et le malware est prouvée.",
+        "footer": "Analyse terminée. Système compromis détecté."
+      }
+    },
+    
+    "creator_message_poet": {
+      "filename": "creator.wrb",
+      "content_type": "video_message",
+      "window_title": "Message du Créateur",
+      "content": {
+        "video_style": "found_footage_authentic",
+        "developer_message": "Merci d'avoir pensé.",
+        "credits": "Jeu conçu par [Équipe]",
+        "mood": "warm_and_human"
+      }
+    }
+  }
+}

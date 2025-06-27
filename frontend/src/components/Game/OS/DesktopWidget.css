@@ -1,0 +1,551 @@
+/* DesktopWidget.css - Styles pour les widgets du bureau */
+
+.desktop-widget {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  pointer-events: all;
+  user-select: none;
+}
+
+.desktop-widget:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.desktop-widget.hovered {
+  border-color: rgba(108, 92, 231, 0.4);
+}
+
+/* === CONTENU DU WIDGET === */
+.widget-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* === WIDGET HORLOGE === */
+.widget-clock .widget-content {
+  text-align: center;
+}
+
+.clock-widget-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.clock-time {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d3436;
+  font-family: 'Consolas', 'Monaco', monospace;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.clock-date {
+  font-size: 12px;
+  color: #636e72;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.clock-timezone {
+  font-size: 10px;
+  color: #a0aec0;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* === WIDGET MÉTÉO === */
+.widget-weather .widget-content {
+  justify-content: space-between;
+}
+
+.weather-widget-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.weather-header {
+  text-align: center;
+}
+
+.weather-location {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.weather-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.weather-temp {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3436;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.weather-forecast {
+  text-align: center;
+  font-size: 11px;
+  color: #636e72;
+  text-transform: capitalize;
+}
+
+/* === WIDGET MUSIQUE === */
+.widget-music_player .widget-content {
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.music-widget-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+}
+
+.music-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.music-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.music-button:hover {
+  background: rgba(108, 92, 231, 0.1);
+}
+
+.music-button.play-pause {
+  font-size: 18px;
+}
+
+.music-info {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.music-song {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d3436;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-artist {
+  font-size: 10px;
+  color: #636e72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-volume {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.volume-icon {
+  font-size: 12px;
+}
+
+.volume-bar {
+  width: 60px;
+  height: 4px;
+  background: rgba(108, 92, 231, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.volume-fill {
+  height: 100%;
+  background: #6c5ce7;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* === CORRUPTION VISUELLE === */
+.desktop-widget.corruption-low {
+  /* Corruption légère */
+}
+
+.desktop-widget.corruption-low .clock-time,
+.desktop-widget.corruption-low .weather-temp {
+  filter: saturate(90%);
+}
+
+.desktop-widget.corruption-medium {
+  /* Corruption moyenne */
+}
+
+.desktop-widget.corruption-medium {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(253, 203, 110, 0.5);
+}
+
+.desktop-widget.corruption-medium .clock-time {
+  animation: text-flicker 2s ease-in-out infinite;
+}
+
+@keyframes text-flicker {
+  0%, 90%, 100% { opacity: 1; }
+  5%, 15% { opacity: 0.7; }
+}
+
+.desktop-widget.corruption-high {
+  /* Corruption élevée */
+}
+
+.desktop-widget.corruption-high {
+  background: rgba(255, 245, 243, 0.9);
+  border-color: rgba(225, 112, 85, 0.5);
+  animation: widget-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes widget-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+}
+
+.desktop-widget.corruption-high .weather-icon {
+  animation: icon-spin 3s linear infinite;
+}
+
+@keyframes icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.desktop-widget.corruption-critical {
+  /* Corruption critique */
+}
+
+.desktop-widget.corruption-critical {
+  background: rgba(255, 234, 234, 0.9);
+  border-color: rgba(214, 48, 49, 0.7);
+  animation: widget-glitch 0.3s ease-in-out infinite;
+}
+
+@keyframes widget-glitch {
+  0% { 
+    transform: translateX(0) scaleX(1);
+    filter: none;
+  }
+  25% { 
+    transform: translateX(-2px) scaleX(1.02);
+    filter: hue-rotate(90deg);
+  }
+  50% { 
+    transform: translateX(2px) scaleX(0.98);
+    filter: hue-rotate(-90deg) invert(10%);
+  }
+  75% { 
+    transform: translateX(-1px) scaleX(1.01);
+    filter: hue-rotate(45deg);
+  }
+  100% { 
+    transform: translateX(0) scaleX(1);
+    filter: none;
+  }
+}
+
+/* === ÉTATS SPÉCIAUX === */
+.desktop-widget.display-error .widget-content {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+.desktop-widget.data-corrupted .clock-time,
+.desktop-widget.data-corrupted .weather-temp,
+.desktop-widget.data-corrupted .music-song {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  color: #e17055;
+}
+
+/* === OVERLAY DE CORRUPTION === */
+.widget-corruption-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  animation: corruption-flicker 0.2s ease-in-out infinite;
+}
+
+@keyframes corruption-flicker {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* === INDICATEUR D'ERREUR === */
+.widget-error-indicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(225, 112, 85, 0.9);
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 4px;
+  z-index: 10;
+  animation: error-pulse 1s ease-in-out infinite;
+}
+
+@keyframes error-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .desktop-widget {
+    padding: 8px;
+    border-radius: 8px;
+  }
+  
+  .clock-time {
+    font-size: 20px;
+  }
+  
+  .clock-date {
+    font-size: 11px;
+  }
+  
+  .weather-temp {
+    font-size: 18px;
+  }
+  
+  .weather-icon {
+    font-size: 20px;
+  }
+  
+  .music-song {
+    font-size: 11px;
+  }
+  
+  .music-artist {
+    font-size: 9px;
+  }
+  
+  .music-button {
+    font-size: 14px;
+    padding: 2px;
+  }
+  
+  .volume-bar {
+    width: 50px;
+    height: 3px;
+  }
+}
+
+/* === THÈME SOMBRE === */
+@media (prefers-color-scheme: dark) {
+  .desktop-widget {
+    background: rgba(45, 52, 54, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .desktop-widget:hover {
+    background: rgba(45, 52, 54, 0.95);
+  }
+  
+  .clock-time,
+  .weather-temp,
+  .music-song,
+  .weather-location {
+    color: #f7fafc;
+  }
+  
+  .clock-date,
+  .weather-forecast,
+  .music-artist {
+    color: #a0aec0;
+  }
+  
+  .clock-timezone {
+    color: #718096;
+  }
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .desktop-widget,
+  .desktop-widget *,
+  .widget-corruption-overlay,
+  .widget-error-indicator {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .desktop-widget:hover {
+    transform: none;
+  }
+}
+
+/* === FOCUS === */
+.desktop-widget:focus {
+  outline: 2px solid #6c5ce7;
+  outline-offset: 2px;
+}
+
+.desktop-widget:focus-visible {
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
+}
+
+/* === ANIMATIONS SPÉCIFIQUES === */
+.widget-clock .clock-time {
+  animation: time-update 1s ease-in-out;
+}
+
+@keyframes time-update {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.widget-weather.corruption-medium .weather-forecast {
+  animation: forecast-error 3s ease-in-out infinite;
+}
+
+@keyframes forecast-error {
+  0%, 70%, 100% { 
+    content: attr(data-original);
+  }
+  71%, 85% { 
+    content: "ERROR_404";
+    color: #e17055;
+  }
+  86%, 99% {
+    content: "???";
+    color: #636e72;
+  }
+}
+
+.widget-music_player.corruption-high .music-button {
+  animation: button-malfunction 2s ease-in-out infinite;
+}
+
+@keyframes button-malfunction {
+  0%, 90%, 100% { 
+    transform: scale(1) rotate(0deg);
+  }
+  5%, 15% { 
+    transform: scale(1.2) rotate(-5deg);
+    filter: hue-rotate(180deg);
+  }
+  20%, 30% {
+    transform: scale(0.8) rotate(5deg);
+    filter: hue-rotate(-180deg);
+  }
+}
+
+/* === ÉTATS DE CHARGE === */
+.desktop-widget.loading .widget-content {
+  opacity: 0.6;
+}
+
+.desktop-widget.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(108, 92, 231, 0.3);
+  border-top-color: #6c5ce7;
+  border-radius: 50%;
+  animation: widget-spin 1s linear infinite;
+  z-index: 10;
+}
+
+@keyframes widget-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* === INTERACTIONS === */
+.desktop-widget .music-button:active {
+  transform: scale(0.95);
+}
+
+.desktop-widget:active {
+  transform: scale(0.98);
+}
+
+/* === ANIMATION D'APPARITION === */
+.desktop-widget {
+  animation: widget-appear 0.5s ease-out;
+}
+
+@keyframes widget-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

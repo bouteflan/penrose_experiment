@@ -1,0 +1,222 @@
+{
+  "layout_casual_organized": {
+    "name": "Disposition Naturellement Désordonnée",
+    "description": "Layout qui simule un bureau utilisé naturellement",
+    "desktop_shortcuts": [
+      {
+        "file": "CV-pour-candidature.pdf",
+        "position": {"x": 80, "y": 200},
+        "alignment": "loose_grid"
+      },
+      {
+        "file": "Projet_Passion.docx",
+        "position": {"x": 85, "y": 260},
+        "alignment": "slightly_offset"
+      },
+      {
+        "file": "Photos_Vacances_Été.zip",
+        "position": {"x": 220, "y": 180},
+        "alignment": "casual_drop"
+      }
+    ],
+    "folder_shortcuts": [
+      {
+        "folder": "Mes Documents",
+        "position": {"x": 50, "y": 100},
+        "alignment": "top_left_area"
+      },
+      {
+        "folder": "Corbeille",
+        "position": {"x": 50, "y": 300},
+        "alignment": "bottom_left_corner"
+      }
+    ],
+    "widgets": [
+      {
+        "type": "clock",
+        "position": {"x": 20, "y": 20},
+        "size": {"width": 200, "height": 80}
+      },
+      {
+        "type": "weather",
+        "position": {"x": 20, "y": 120},
+        "size": {"width": 180, "height": 100}
+      },
+      {
+        "type": "music_player",
+        "position": {"x": 250, "y": 20},
+        "size": {"width": 220, "height": 60}
+      }
+    ]
+  },
+  
+  "layout_clean_minimal": {
+    "name": "Bureau Propre et Minimal",
+    "description": "Layout pour utilisateurs organisés",
+    "desktop_shortcuts": [
+      {
+        "file": "CV-pour-candidature.pdf",
+        "position": {"x": 80, "y": 100},
+        "alignment": "perfect_grid"
+      },
+      {
+        "file": "Rapport_Mensuel.pdf",
+        "position": {"x": 80, "y": 180},
+        "alignment": "perfect_grid"
+      }
+    ],
+    "folder_shortcuts": [
+      {
+        "folder": "Mes Documents",
+        "position": {"x": 50, "y": 50},
+        "alignment": "top_left_corner"
+      },
+      {
+        "folder": "Corbeille",
+        "position": {"x": 50, "y": 400},
+        "alignment": "bottom_left_corner"
+      }
+    ],
+    "widgets": [
+      {
+        "type": "clock",
+        "position": {"x": 20, "y": 20},
+        "size": {"width": 180, "height": 60}
+      }
+    ]
+  },
+  
+  "layout_creative_chaos": {
+    "name": "Chaos Créatif",
+    "description": "Bureau d'un utilisateur créatif et débordé",
+    "desktop_shortcuts": [
+      {
+        "file": "Projet_Passion.docx",
+        "position": {"x": 150, "y": 120},
+        "alignment": "random_scattered"
+      },
+      {
+        "file": "Photos_Vacances_Été.zip",
+        "position": {"x": 300, "y": 200},
+        "alignment": "random_scattered"
+      },
+      {
+        "file": "Présentation_Projet.pptx",
+        "position": {"x": 120, "y": 280},
+        "alignment": "random_scattered"
+      },
+      {
+        "file": "Liste_Courses.txt",
+        "position": {"x": 400, "y": 150},
+        "alignment": "random_scattered"
+      }
+    ],
+    "folder_shortcuts": [
+      {
+        "folder": "Mes Documents",
+        "position": {"x": 60, "y": 80},
+        "alignment": "approximate_area"
+      },
+      {
+        "folder": "Photos",
+        "position": {"x": 65, "y": 160},
+        "alignment": "approximate_area"
+      },
+      {
+        "folder": "Corbeille",
+        "position": {"x": 45, "y": 350},
+        "alignment": "approximate_area"
+      }
+    ],
+    "widgets": [
+      {
+        "type": "clock",
+        "position": {"x": 25, "y": 25},
+        "size": {"width": 200, "height": 80}
+      },
+      {
+        "type": "weather",
+        "position": {"x": 25, "y": 125},
+        "size": {"width": 180, "height": 100}
+      },
+      {
+        "type": "music_player",
+        "position": {"x": 250, "y": 25},
+        "size": {"width": 220, "height": 60}
+      },
+      {
+        "type": "calendar",
+        "position": {"x": 25, "y": 245},
+        "size": {"width": 180, "height": 120}
+      }
+    ]
+  },
+  
+  "background_variations": {
+    "personal_photos": [
+      {
+        "name": "Sunset Beach",
+        "description": "Coucher de soleil sur une plage",
+        "color_palette": ["#FF6B35", "#F7931E", "#FFD23F", "#06BCC1"],
+        "mood": "relaxant",
+        "corruption_vulnerability": "high"
+      },
+      {
+        "name": "Mountain Lake",
+        "description": "Lac de montagne avec reflets",
+        "color_palette": ["#2C5F41", "#97BC62", "#E4F1DF", "#4A7C7A"],
+        "mood": "paisible",
+        "corruption_vulnerability": "medium"
+      },
+      {
+        "name": "City Lights",
+        "description": "Skyline de ville la nuit",
+        "color_palette": ["#1A1B23", "#6C5CE7", "#74B9FF", "#FDCB6E"],
+        "mood": "dynamique",
+        "corruption_vulnerability": "low"
+      },
+      {
+        "name": "Forest Path",
+        "description": "Sentier en forêt automne",
+        "color_palette": ["#8B4513", "#CD853F", "#DEB887", "#228B22"],
+        "mood": "naturel",
+        "corruption_vulnerability": "medium"
+      },
+      {
+        "name": "Family Gathering",
+        "description": "Photo de famille floue",
+        "color_palette": ["#F5DEB3", "#D2B48C", "#BC8F8F", "#8FBC8F"],
+        "mood": "personnel",
+        "corruption_vulnerability": "very_high"
+      }
+    ]
+  },
+  
+  "personalization_elements": {
+    "taskbar_customization": [
+      {
+        "pinned_apps": ["file_explorer", "word", "browser", "music"],
+        "notification_badges": true,
+        "clock_format": "24h"
+      },
+      {
+        "pinned_apps": ["file_explorer", "calculator", "notepad"],
+        "notification_badges": false,
+        "clock_format": "12h"
+      }
+    ],
+    
+    "system_sounds": [
+      {
+        "scheme": "default_windows",
+        "notification_sound": "ding.wav",
+        "error_sound": "error.wav"
+      },
+      {
+        "scheme": "custom_minimal",
+        "notification_sound": "soft_chime.wav",
+        "error_sound": "subtle_error.wav"
+      }
+    ]
+  }
+}

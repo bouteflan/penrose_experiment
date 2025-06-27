@@ -1,0 +1,338 @@
+/* GameInterface.css - Styles pour l'interface principale du jeu */
+
+.game-interface {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f0f0;
+  user-select: none;
+}
+
+/* === CHARGEMENT === */
+.game-interface-loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.spinner-dots .dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: dot-pulse 1.4s ease-in-out infinite both;
+}
+
+.spinner-dots .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.spinner-dots .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes dot-pulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loading-content p {
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* === LAYOUT PRINCIPAL === */
+.game-interface {
+  display: grid;
+  grid-template-areas: 
+    "desktop desktop desktop"
+    "desktop desktop tom-console"
+    "system-tray system-tray system-tray";
+  grid-template-columns: 1fr 1fr 400px;
+  grid-template-rows: 1fr auto 60px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1200px) {
+  .game-interface {
+    grid-template-areas: 
+      "desktop desktop"
+      "desktop tom-console"
+      "system-tray system-tray";
+    grid-template-columns: 1fr 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-interface {
+    grid-template-areas: 
+      "desktop"
+      "tom-console"
+      "system-tray";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto 60px;
+  }
+}
+
+/* === ZONES DE GRID === */
+.virtual-desktop {
+  grid-area: desktop;
+  position: relative;
+  overflow: hidden;
+}
+
+.tom-console {
+  grid-area: tom-console;
+  position: relative;
+}
+
+.system-tray {
+  grid-area: system-tray;
+  position: relative;
+}
+
+/* === OVERLAYS === */
+.game-interface > .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.game-interface > .overlay.interactive {
+  pointer-events: all;
+}
+
+/* === ÉTATS DU JEU === */
+.game-interface.phase-adhesion {
+  /* Phase d'adhésion - interface normale */
+}
+
+.game-interface.phase-dissonance {
+  /* Phase de dissonance - légers glitchs */
+}
+
+.game-interface.phase-dissonance .virtual-desktop {
+  animation: subtle-shake 10s ease-in-out infinite;
+}
+
+@keyframes subtle-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(0.5px); }
+  50% { transform: translateX(-0.5px); }
+  75% { transform: translateX(0.3px); }
+}
+
+.game-interface.phase-rupture {
+  /* Phase de rupture - corruption visible */
+}
+
+.game-interface.phase-rupture .virtual-desktop {
+  animation: intense-glitch 0.5s ease-in-out infinite;
+}
+
+@keyframes intense-glitch {
+  0% { 
+    transform: translateX(0); 
+    filter: none;
+  }
+  10% { 
+    transform: translateX(-2px); 
+    filter: hue-rotate(90deg);
+  }
+  20% { 
+    transform: translateX(2px); 
+    filter: hue-rotate(-90deg);
+  }
+  30% { 
+    transform: translateX(-1px); 
+    filter: none;
+  }
+  40% { 
+    transform: translateX(1px); 
+    filter: hue-rotate(45deg);
+  }
+  50% { 
+    transform: translateX(0); 
+    filter: none;
+  }
+  60% { 
+    transform: translateX(0.5px); 
+    filter: hue-rotate(-45deg);
+  }
+  70% { 
+    transform: translateX(-0.5px); 
+    filter: none;
+  }
+  80% { 
+    transform: translateX(0); 
+    filter: hue-rotate(30deg);
+  }
+  90% { 
+    transform: translateX(0); 
+    filter: none;
+  }
+  100% { 
+    transform: translateX(0); 
+    filter: none;
+  }
+}
+
+/* === CORRUPTION VISUELLE === */
+.game-interface.corrupted-low {
+  /* Corruption légère */
+}
+
+.game-interface.corrupted-medium {
+  /* Corruption moyenne */
+}
+
+.game-interface.corrupted-high {
+  /* Corruption élevée */
+  filter: contrast(120%) brightness(90%);
+}
+
+.game-interface.corrupted-critical {
+  /* Corruption critique */
+  filter: contrast(150%) brightness(80%) hue-rotate(180deg);
+  animation: critical-corruption 0.3s ease-in-out infinite;
+}
+
+@keyframes critical-corruption {
+  0%, 100% { 
+    filter: contrast(150%) brightness(80%) hue-rotate(180deg);
+  }
+  50% { 
+    filter: contrast(200%) brightness(60%) hue-rotate(220deg) saturate(150%);
+  }
+}
+
+/* === FULLSCREEN === */
+.game-interface.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+/* === FOCUS ET INTERACTIVITÉ === */
+.game-interface:focus-within {
+  outline: none;
+}
+
+/* Curseurs contextuels */
+.game-interface .clickable {
+  cursor: pointer;
+}
+
+.game-interface .draggable {
+  cursor: grab;
+}
+
+.game-interface .draggable:active {
+  cursor: grabbing;
+}
+
+.game-interface .corrupted-element {
+  cursor: not-allowed;
+}
+
+/* === TRANSITIONS === */
+.game-interface * {
+  transition: filter 0.3s ease, transform 0.2s ease;
+}
+
+.game-interface .no-transition * {
+  transition: none !important;
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .game-interface,
+  .game-interface *,
+  .game-interface::before,
+  .game-interface::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === PRINT === */
+@media print {
+  .game-interface {
+    display: none;
+  }
+}
+
+/* === VARIABLES CSS POUR THEMES === */
+.game-interface {
+  --primary-color: #6c5ce7;
+  --secondary-color: #a29bfe;
+  --success-color: #00b894;
+  --warning-color: #fdcb6e;
+  --danger-color: #e17055;
+  --dark-color: #2d3436;
+  --light-color: #ddd;
+  --background-color: #f0f0f0;
+  --text-color: #2d3436;
+  --border-color: #ddd;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --corruption-intensity: 0;
+}
+
+/* Variables de corruption dynamiques */
+.game-interface[data-corruption="low"] {
+  --corruption-intensity: 0.2;
+}
+
+.game-interface[data-corruption="medium"] {
+  --corruption-intensity: 0.5;
+}
+
+.game-interface[data-corruption="high"] {
+  --corruption-intensity: 0.8;
+}
+
+.game-interface[data-corruption="critical"] {
+  --corruption-intensity: 1.0;
+}

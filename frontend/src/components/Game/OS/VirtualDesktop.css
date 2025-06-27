@@ -1,0 +1,396 @@
+/* VirtualDesktop.css - Styles pour le bureau virtuel */
+
+.virtual-desktop {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--background-color, #f0f0f0);
+  cursor: default;
+  user-select: none;
+}
+
+/* === FOND D'ÉCRAN === */
+.desktop-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: filter 0.3s ease;
+}
+
+.dead-pixels-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle at 10% 20%, black 1px, transparent 1px),
+    radial-gradient(circle at 30% 60%, black 1px, transparent 1px),
+    radial-gradient(circle at 70% 30%, black 1px, transparent 1px),
+    radial-gradient(circle at 85% 80%, black 1px, transparent 1px),
+    radial-gradient(circle at 45% 90%, black 1px, transparent 1px);
+  animation: pixel-flicker 2s ease-in-out infinite;
+}
+
+@keyframes pixel-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* === LAYOUT DES ÉLÉMENTS === */
+.desktop-widgets {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.desktop-files {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
+.desktop-folders {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
+/* === INFORMATIONS SESSION === */
+.session-info {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(45, 52, 54, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.session-info:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(45, 52, 54, 1);
+}
+
+.debug-info {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 10px;
+  color: #6c5ce7;
+}
+
+/* === DEBUG === */
+.mouse-debug {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 999;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 10px;
+  color: #e17055;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* === CORRUPTION VISUELLE === */
+.virtual-desktop.corruption-low {
+  /* Corruption légère - légère désaturation */
+}
+
+.virtual-desktop.corruption-low .desktop-background {
+  filter: saturate(90%) brightness(95%);
+}
+
+.virtual-desktop.corruption-medium {
+  /* Corruption moyenne - distorsion visible */
+}
+
+.virtual-desktop.corruption-medium .desktop-background {
+  filter: saturate(80%) brightness(90%) contrast(110%);
+  animation: medium-corruption 3s ease-in-out infinite;
+}
+
+@keyframes medium-corruption {
+  0%, 100% { 
+    filter: saturate(80%) brightness(90%) contrast(110%);
+  }
+  50% { 
+    filter: saturate(70%) brightness(85%) contrast(120%) hue-rotate(5deg);
+  }
+}
+
+.virtual-desktop.corruption-high {
+  /* Corruption élevée - changements de couleur */
+}
+
+.virtual-desktop.corruption-high .desktop-background {
+  filter: saturate(60%) brightness(80%) contrast(130%) hue-rotate(30deg);
+  animation: high-corruption 1s ease-in-out infinite;
+}
+
+@keyframes high-corruption {
+  0%, 100% { 
+    filter: saturate(60%) brightness(80%) contrast(130%) hue-rotate(30deg);
+  }
+  25% { 
+    filter: saturate(40%) brightness(70%) contrast(150%) hue-rotate(60deg);
+  }
+  50% { 
+    filter: saturate(30%) brightness(60%) contrast(170%) hue-rotate(90deg);
+  }
+  75% { 
+    filter: saturate(50%) brightness(75%) contrast(140%) hue-rotate(45deg);
+  }
+}
+
+.virtual-desktop.corruption-critical {
+  /* Corruption critique - chaos visuel */
+}
+
+.virtual-desktop.corruption-critical .desktop-background {
+  filter: saturate(200%) brightness(50%) contrast(200%) hue-rotate(180deg) invert(20%);
+  animation: critical-corruption 0.3s ease-in-out infinite;
+}
+
+@keyframes critical-corruption {
+  0% { 
+    filter: saturate(200%) brightness(50%) contrast(200%) hue-rotate(180deg) invert(20%);
+    transform: translateX(0);
+  }
+  25% { 
+    filter: saturate(300%) brightness(30%) contrast(250%) hue-rotate(270deg) invert(40%);
+    transform: translateX(-2px);
+  }
+  50% { 
+    filter: saturate(100%) brightness(70%) contrast(300%) hue-rotate(360deg) invert(60%);
+    transform: translateX(2px);
+  }
+  75% { 
+    filter: saturate(400%) brightness(20%) contrast(180%) hue-rotate(90deg) invert(80%);
+    transform: translateX(-1px);
+  }
+  100% { 
+    filter: saturate(200%) brightness(50%) contrast(200%) hue-rotate(180deg) invert(20%);
+    transform: translateX(0);
+  }
+}
+
+/* === OVERLAY DE GLITCH === */
+.glitch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 0, 0, 0.1) 10%,
+    transparent 15%,
+    rgba(0, 255, 0, 0.1) 30%,
+    transparent 35%,
+    rgba(0, 0, 255, 0.1) 60%,
+    transparent 65%,
+    rgba(255, 255, 0, 0.1) 80%,
+    transparent 85%
+  );
+  mix-blend-mode: screen;
+}
+
+@keyframes glitch-lines {
+  0% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(-5px) scaleX(1.02);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(5px) scaleX(0.98);
+    opacity: 0.8;
+  }
+  30% {
+    transform: translateX(-2px) scaleX(1.01);
+    opacity: 0.6;
+  }
+  40% {
+    transform: translateX(3px) scaleX(0.99);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0.4;
+  }
+  60% {
+    transform: translateX(-3px) scaleX(1.02);
+    opacity: 0.7;
+  }
+  70% {
+    transform: translateX(2px) scaleX(0.98);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-1px) scaleX(1.01);
+    opacity: 0.5;
+  }
+  90% {
+    transform: translateX(1px) scaleX(0.99);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0) scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* === SÉLECTION === */
+.virtual-desktop .selectable {
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.virtual-desktop .selectable:hover {
+  filter: brightness(110%);
+}
+
+.virtual-desktop .selectable.selected {
+  filter: brightness(120%) saturate(120%);
+}
+
+.virtual-desktop .selectable.selected::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid rgba(108, 92, 231, 0.7);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* === DRAG & DROP === */
+.virtual-desktop .dragging {
+  opacity: 0.7;
+  transform: scale(0.95);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.virtual-desktop .drag-over {
+  background: rgba(108, 92, 231, 0.1);
+  border: 2px dashed rgba(108, 92, 231, 0.5);
+  border-radius: 8px;
+}
+
+/* === STATES ADAPTATIFS === */
+.virtual-desktop[data-corruption-level="0"] {
+  /* État parfait */
+}
+
+.virtual-desktop[data-corruption-level^="0.1"],
+.virtual-desktop[data-corruption-level^="0.2"] {
+  /* Corruption naissante */
+}
+
+.virtual-desktop[data-corruption-level^="0.3"],
+.virtual-desktop[data-corruption-level^="0.4"],
+.virtual-desktop[data-corruption-level^="0.5"] {
+  /* Corruption visible */
+}
+
+.virtual-desktop[data-corruption-level^="0.6"],
+.virtual-desktop[data-corruption-level^="0.7"] {
+  /* Corruption préoccupante */
+}
+
+.virtual-desktop[data-corruption-level^="0.8"],
+.virtual-desktop[data-corruption-level^="0.9"],
+.virtual-desktop[data-corruption-level="1"] {
+  /* Corruption catastrophique */
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .session-info {
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+  
+  .mouse-debug {
+    bottom: 8px;
+    left: 8px;
+    font-size: 8px;
+  }
+}
+
+/* === THÈMES === */
+.virtual-desktop.theme-dark {
+  --background-color: #2d3436;
+  --text-color: #ddd;
+}
+
+.virtual-desktop.theme-dark .session-info {
+  background: rgba(45, 52, 54, 0.9);
+  color: rgba(221, 221, 221, 0.9);
+}
+
+/* === ACCESSIBILITÉ === */
+@media (prefers-reduced-motion: reduce) {
+  .virtual-desktop,
+  .virtual-desktop * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === PERFORMANCE === */
+.virtual-desktop {
+  will-change: filter, transform;
+  transform: translateZ(0); /* Force compositing layer */
+}
+
+.desktop-background {
+  will-change: filter;
+  transform: translateZ(0);
+}
+
+/* === ÉTATS DE FOCUS === */
+.virtual-desktop:focus-within .session-info {
+  opacity: 1;
+}
+
+.virtual-desktop .session-info {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}

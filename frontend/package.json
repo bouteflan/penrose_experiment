@@ -1,0 +1,39 @@
+{
+  "name": "remote-game-frontend",
+  "version": "1.0.0",
+  "description": "Frontend pour le jeu REMOTE - Thriller psychologique",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint src --ext js,jsx",
+    "lint:fix": "eslint src --ext js,jsx --fix"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7",
+    "framer-motion": "^10.16.4",
+    "howler": "^2.2.4",
+    "uuid": "^9.0.1",
+    "react-draggable": "^4.4.6",
+    "react-resizable": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.1.1",
+    "vite": "^5.0.0",
+    "vitest": "^0.34.6",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

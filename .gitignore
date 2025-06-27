@@ -1,0 +1,329 @@
+# REMOTE - Git Ignore File
+
+# ===== BACKEND (Python) =====
+
+# Environnements virtuels
+backend/venv/
+backend/env/
+backend/.venv/
+
+# Variables d'environnement
+backend/.env
+backend/.env.local
+backend/.env.production
+
+# Base de données
+backend/database/*.db
+backend/database/*.db-journal
+backend/database/*.sqlite
+backend/database/*.sqlite3
+
+# Logs
+backend/logs/
+backend/*.log
+
+# Cache Python
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.Python
+
+# Distribution / packaging
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/.eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+
+# PyInstaller
+backend/*.manifest
+backend/*.spec
+
+# Unit test / coverage
+backend/.coverage
+backend/.pytest_cache/
+backend/htmlcov/
+backend/.tox/
+backend/.nox/
+backend/coverage.xml
+backend/*.cover
+backend/.hypothesis/
+
+# Jupyter Notebook
+backend/.ipynb_checkpoints
+
+# IPython
+backend/profile_default/
+backend/ipython_config.py
+
+# pyenv
+backend/.python-version
+
+# Celery
+backend/celerybeat-schedule
+backend/celerybeat.pid
+
+# Environments
+backend/.env
+backend/.venv
+backend/env/
+backend/venv/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+
+# Spyder project settings
+backend/.spyderproject
+backend/.spyproject
+
+# Rope project settings
+backend/.ropeproject
+
+# mkdocs documentation
+backend/site
+
+# mypy
+backend/.mypy_cache/
+backend/.dmypy.json
+backend/dmypy.json
+
+# ===== FRONTEND (Node.js/React) =====
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Production build
+frontend/build/
+frontend/dist/
+
+# Environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+
+# Runtime data
+frontend/pids
+frontend/*.pid
+frontend/*.seed
+frontend/*.pid.lock
+
+# Coverage directory used by tools like istanbul
+frontend/coverage/
+frontend/*.lcov
+
+# nyc test coverage
+frontend/.nyc_output
+
+# Grunt intermediate storage
+frontend/.grunt
+
+# Bower dependency directory
+frontend/bower_components
+
+# node-waf configuration
+frontend/.lock-wscript
+
+# Compiled binary addons
+frontend/build/Release
+
+# Dependency directories
+frontend/jspm_packages/
+
+# TypeScript v1 declaration files
+frontend/typings/
+
+# TypeScript cache
+frontend/*.tsbuildinfo
+
+# Optional npm cache directory
+frontend/.npm
+
+# Optional eslint cache
+frontend/.eslintcache
+
+# Microbundle cache
+frontend/.rpt2_cache/
+frontend/.rts2_cache_cjs/
+frontend/.rts2_cache_es/
+frontend/.rts2_cache_umd/
+
+# Optional REPL history
+frontend/.node_repl_history
+
+# Output of 'npm pack'
+frontend/*.tgz
+
+# Yarn Integrity file
+frontend/.yarn-integrity
+
+# parcel-bundler cache
+frontend/.cache
+frontend/.parcel-cache
+
+# Next.js build output
+frontend/.next
+
+# Nuxt.js build / generate output
+frontend/.nuxt
+frontend/dist
+
+# Gatsby files
+frontend/.cache/
+frontend/public
+
+# Storybook build outputs
+frontend/.out
+frontend/.storybook-out
+
+# Temporary folders
+frontend/tmp/
+frontend/temp/
+
+# ===== DONNÉES ET CONFIGURATION =====
+
+# Données expérimentales sensibles
+data/sessions/
+data/exports/
+data/backups/
+
+# Configurations locales
+config/local/
+config/*.local.*
+
+# ===== SYSTÈME =====
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.tmp
+*.temp
+desktop.ini
+
+# Linux
+*~
+
+# ===== DÉVELOPPEMENT =====
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===== DÉPLOIEMENT =====
+
+# Dossier de déploiement
+deploy/
+*.zip
+*.tar.gz
+*.tar
+
+# Certificats et clés
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Docker (si utilisé plus tard)
+Dockerfile.prod
+docker-compose.prod.yml
+.dockerignore
+
+# ===== EXPÉRIMENTATION =====
+
+# Données expérimentales
+experiments/raw/
+experiments/processed/
+experiments/exports/
+
+# Résultats d'analyse
+analysis/outputs/
+analysis/reports/
+analysis/*.html
+analysis/*.pdf
+
+# ===== SAUVEGARDES =====
+
+# Sauvegardes automatiques
+*.bak
+*.backup
+*.old
+
+# Fichiers temporaires
+tmp/
+temp/
+.tmp/
+
+# ===== LOGS GLOBAUX =====
+
+# Tous les fichiers de log
+*.log
+logs/
+log/
+
+# ===== AUTRES =====
+
+# Fichiers de configuration spécifiques à l'environnement
+.env.*
+!.env.example
+
+# Dossiers de test
+test_output/
+test_results/
+
+# Documentation générée
+docs/build/
+docs/_build/
+
+# Rapports
+reports/
+benchmarks/
