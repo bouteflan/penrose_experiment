@@ -25,14 +25,7 @@ import ErrorBoundary from './components/UI/ErrorBoundary';
 // Styles
 import './styles/app.css';
 
-// Configuration par défaut
-const defaultConfig = {
-  wsUrl: 'ws://localhost:8000/ws',
-  debug: process.env.NODE_ENV === 'development',
-  environment: process.env.NODE_ENV || 'development'
-};
-
-const App = ({ config = defaultConfig }) => {
+const App = ({ config }) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [initError, setInitError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
@@ -52,19 +45,25 @@ const App = ({ config = defaultConfig }) => {
   const initializeApp = useCallback(async () => {
     try {
       console.log('🚀 Initialisation de REMOTE...');
+      console.log('📋 Configuration:', config);
       
       // Générer un ID de session unique
       const newSessionId = generateId();
       setSessionId(newSessionId);
       
       // Initialiser les services
+      console.log('🔌 Création WebSocketService avec URL:', config.wsUrl);
       const ws = new WebSocketService(config.wsUrl);
+      
+      console.log('🔊 Création AudioService...');
       const audio = new AudioService();
       
       setWsService(ws);
       setAudioService(audio);
       
       // Initialiser les stores avec les services
+      console.log('📦 Initialisation des stores...');
+      
       gameStore.initialize({
         sessionId: newSessionId,
         config,
@@ -83,7 +82,7 @@ const App = ({ config = defaultConfig }) => {
         audioService: audio
       });
       
-      console.log('✅ Application initialisée');
+      console.log('✅ Application initialisée avec succès');
       setIsInitialized(true);
       
     } catch (error) {
@@ -127,7 +126,7 @@ const App = ({ config = defaultConfig }) => {
    * Gestionnaire d'erreur globale
    */
   const handleError = useCallback((error, errorInfo) => {
-    console.error('Erreur dans l\'application:', error, errorInfo);
+    console.error('❌ Erreur dans l\'application:', error, errorInfo);
     
     // En production, envoyer à un service de monitoring
     if (config.environment === 'production') {
@@ -137,6 +136,11 @@ const App = ({ config = defaultConfig }) => {
 
   // Initialisation au montage
   useEffect(() => {
+    if (!config) {
+      setInitError(new Error('Configuration manquante'));
+      return;
+    }
+    
     initializeApp();
     
     // Gestionnaires d'événements
@@ -147,7 +151,7 @@ const App = ({ config = defaultConfig }) => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       cleanup();
     };
-  }, [initializeApp, handleBeforeUnload, cleanup]);
+  }, [initializeApp, handleBeforeUnload, cleanup, config]);
 
   // Gestion des raccourcis clavier globaux
   useEffect(() => {
@@ -161,7 +165,7 @@ const App = ({ config = defaultConfig }) => {
       }
       
       // Raccourcis de debug (développement seulement)
-      if (config.debug && event.ctrlKey && event.shiftKey) {
+      if (config?.debug && event.ctrlKey && event.shiftKey) {
         switch (event.key) {
           case 'D':
             // Toggle debug overlay
@@ -181,7 +185,7 @@ const App = ({ config = defaultConfig }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [gameStore, config.debug]);
+  }, [gameStore, config]);
 
   // Rendu conditionnel selon l'état d'initialisation
   if (initError) {
@@ -202,7 +206,7 @@ const App = ({ config = defaultConfig }) => {
     );
   }
 
-  if (!isInitialized) {
+  if (!isInitialized || !config) {
     return (
       <div className="app-loading">
         <LoadingSpinner message="Initialisation de REMOTE..." />

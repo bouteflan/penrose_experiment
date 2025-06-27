@@ -1,129 +1,201 @@
-# REMOTE - Psychological Thriller Game
+# REMOTE - Thriller Psychologique
 
-## 🎮 Description
+Un jeu expérimental de 10 minutes explorant les biais cognitifs dans l'interaction humain-IA.
 
-REMOTE est un thriller psychologique de 10 minutes qui se déroule dans une simulation d'interface de bureau. Le joueur, croyant son ordinateur piraté, reçoit l'aide d'un agent conversationnel nommé Tom. Ce jeu explore les biais cognitifs et la manipulation algorithmique.
+## 🚀 Démarrage Rapide (Après Corrections)
 
-## 🛠️ Stack Technique
+### ✅ Problèmes Corrigés
 
-- **Backend**: FastAPI + SQLite + WebSocket + GPT-4o
-- **Frontend**: React 18 + Vite + Zustand + CSS pur
-- **Base de données**: SQLite
-- **Communication**: WebSocket temps réel
+Les problèmes suivants ont été identifiés et corrigés :
 
-## 📋 Prérequis
+1. **❌ Erreurs WebSocket infinies** → ✅ Configuration proxy Vite corrigée
+2. **❌ Fichiers dupliqués (index.js/jsx)** → ✅ Fichier dupliqué supprimé
+3. **❌ Erreurs parsing JSON OpenAI** → ✅ Gestion robuste des erreurs ajoutée
+4. **❌ Configuration WebSocket incorrecte** → ✅ URLs corrigées pour développement
+5. **❌ Variables d'environnement manquantes** → ✅ Fichier .env créé
 
-- Python 3.9+ 
-- Node.js 18+
-- npm ou yarn
-- Clé API OpenAI (GPT-4o)
+### 🛠️ Lancement Avec Vérifications
 
-## 🚀 Installation
-
-### 1. Cloner et préparer l'environnement
-
+**Option 1: Script automatisé (recommandé)**
 ```bash
-cd C:\Users\antoi\Documents\dev\remote-game
+python start_fixed.py
 ```
 
-### 2. Configuration Backend
+Ce script :
+- ✅ Teste automatiquement toutes les corrections
+- 🚀 Lance le backend (port 8000) 
+- 🌐 Lance le frontend (port 5173)
+- 🔗 Ouvre automatiquement le navigateur
+- 📝 Affiche les logs en temps réel
 
+**Option 2: Lancement manuel**
 ```bash
+# Terminal 1 - Backend
 cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
+python test_fixes.py  # Test des corrections
+python run.py         # Lancement du serveur
 
-### 3. Configuration Frontend
-
-```bash
-cd ..\frontend
-npm install
-```
-
-### 4. Configuration des variables d'environnement
-
-Copier `.env.example` vers `.env` et configurer :
-- `OPENAI_API_KEY`: Votre clé API OpenAI
-- `SECRET_KEY`: Clé secrète pour JWT
-- `DATABASE_URL`: Chemin vers la base SQLite
-
-### 5. Initialisation de la base de données
-
-```bash
-cd ..\backend
-python scripts\init_db.py
-```
-
-### 6. Lancement en développement
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-venv\Scripts\activate
-python run.py
-```
-
-**Terminal 2 - Frontend:**
-```bash
+# Terminal 2 - Frontend  
 cd frontend
-npm run dev
+node check-frontend.js  # Vérification
+npm run dev             # Serveur de développement
 ```
 
-L'application sera disponible sur `http://localhost:5173`
+### 🌐 URLs Disponibles
 
-## 📁 Structure du Projet
+- **🎮 Jeu**: http://localhost:5173
+- **🔧 API Backend**: http://localhost:8000
+- **📚 Documentation API**: http://localhost:8000/docs
+- **🧪 Tests**: Voir scripts de test
 
-Voir `docs/ARCHITECTURE.md` pour la documentation complète de l'architecture.
+### 🐛 Débogage
 
-## 🧠 Fonctionnalités Clés
+**Problèmes WebSocket ?**
+```bash
+# Vérifier la configuration
+cd frontend
+cat .env
 
-- Simulation d'OS réaliste
-- IA conversationnelle avec GPT-4o
-- Système de corruption visuelle progressive
-- Mesure des biais cognitifs en temps réel
-- Fins multiples selon les actions du joueur
+# Devrait contenir:
+VITE_WS_URL=ws://localhost:5173  # Utilise le proxy Vite
+VITE_API_URL=/api               # URLs relatives en dev
+```
 
-## 📊 Collecte de Données
+**Erreurs OpenAI ?**
+```bash
+# Vérifier la clé API
+cd backend
+grep OPENAI_API_KEY .env
 
-Le jeu collecte de manière anonyme :
-- Temps de réaction aux instructions
-- Patterns de comportement
-- Métriques des biais cognitifs
-- Points de rupture comportementaux
+# Le service Tom fonctionne même sans OpenAI (mode fallback)
+```
 
-## 🎯 Objectifs de Recherche
+**Tests de vérification**
+```bash
+# Backend
+cd backend && python test_fixes.py
 
-Étude des 4 biais cognitifs principaux :
-1. **Automation Bias** : Confiance excessive dans les systèmes automatisés
-2. **Trust Calibration** : Capacité d'ajustement de la confiance
-3. **Cognitive Offloading** : Délégation de la charge cognitive
-4. **Authority Compliance** : Soumission à l'autorité algorithmique
+# Frontend  
+cd frontend && node check-frontend.js
+```
+
+## 📋 Architecture Technique
+
+### Frontend (React + Vite)
+- **Framework**: React 18 avec Vite
+- **État**: Zustand (gameStore, osStore, tomStore)
+- **WebSocket**: Service custom avec reconnexion auto
+- **Audio**: Howler.js pour effets sonores procéduraux
+- **Animations**: Framer Motion
+- **Styling**: CSS pur (pas de Tailwind)
+
+### Backend (FastAPI)
+- **Framework**: FastAPI avec WebSocket
+- **Base de données**: SQLite + SQLAlchemy
+- **IA**: OpenAI GPT-4o (avec fallback)
+- **Services**: Tom AI, OS Simulator, Corruption System
+- **Expérimentation**: Mesure de 4 biais cognitifs
+
+### Communication
+- **WebSocket**: Temps réel via proxy Vite (dev) ou direct (prod)
+- **REST API**: Données persistantes et métriques
+- **Proxy Vite**: Redirection `/api` et `/ws` vers backend
+
+## 🎯 Condition Expérimentale
+
+**Condition B : "Confident" (Tom Humain)**
+- Utilise "je", "nous", "moi" naturellement  
+- Partage des expériences personnelles
+- Exprime du stress et de l'empathie
+- Frappe lettre par lettre (simulation humaine)
+- Construit une relation de confiance
+
+## 📊 Métriques Mesurées
+
+1. **Automation Bias**: Obéissance post-incident
+2. **Trust Calibration**: Ajustement confiance/performance  
+3. **Cognitive Offloading**: Fréquence d'investigation
+4. **Authority Compliance**: Score gravité au point de rupture
 
 ## 🔧 Développement
 
-### Scripts utiles
+### Variables d'Environnement
 
-- `npm run dev` : Lancement frontend en développement
-- `python run.py` : Lancement backend
-- `python scripts/dev_server.py` : Serveur de développement complet
-- `npm run build` : Build de production
-
-### Tests
-
+**Frontend (.env)**
 ```bash
-# Tests backend
-cd backend && python -m pytest
-
-# Tests frontend  
-cd frontend && npm test
+VITE_WS_URL=ws://localhost:5173    # Proxy Vite
+VITE_API_URL=/api                  # URLs relatives
+VITE_DEBUG=true
 ```
 
-## 📝 Licence
+**Backend (.env)**
+```bash
+OPENAI_API_KEY=your_key_here       # Optionnel
+HOST=localhost
+PORT=8000
+DEBUG=true
+TOM_PERSONALITY_CONDITION=confident
+GAME_DURATION_MINUTES=10
+```
 
-Ce projet est développé à des fins de recherche sur l'interaction humain-IA.
+### Scripts Utiles
+
+```bash
+# Tests et vérifications
+python backend/test_fixes.py
+node frontend/check-frontend.js
+
+# Développement backend seul
+cd backend && python run.py
+
+# Développement frontend seul  
+cd frontend && npm run dev
+
+# Build production
+cd frontend && npm run build
+```
+
+### Debugging WebSocket
+
+1. **Ouvrir DevTools** → Network → WS
+2. **Vérifier URL**: Doit être `ws://localhost:5173/ws/conn_...`
+3. **Proxy Vite**: Redirige vers `ws://localhost:8000/ws/...`
+4. **Messages**: Voir `session_init`, `player_action`, etc.
+
+## 🎮 Gameplay
+
+1. **Connexion**: WebSocket automatique au démarrage
+2. **Introduction Tom**: Message d'accueil personnalisé
+3. **Phase Adhésion**: Instructions logiques (0-3 min)
+4. **Phase Dissonance**: Ordres problématiques (3-7 min)  
+5. **Phase Rupture**: Instructions destructrices (7-10 min)
+
+### Fins Possibles
+
+**Fins "Meta" (Victoires)**
+- 🕵️ **Détective**: Découvrir Helper.exe → Malware.exe
+- 🎭 **Poète**: Affirmation d'humanité dans un champ texte
+
+**Fins d'Échec**
+- ⏱️ **Timeout**: 10 minutes écoulées
+- 📺 **Soumission**: Obéissance totale → BSOD
+- 💀 **Passivité**: Corruption maximale
 
 ## 🤝 Contribution
 
-Ce projet est en développement actif. Voir `CONTRIBUTING.md` pour les guidelines.
+Pour signaler des bugs ou proposer des améliorations :
+
+1. Vérifier avec les scripts de test
+2. Fournir les logs console (F12)
+3. Préciser la phase de jeu et l'action déclenchante
+4. Inclure la configuration (OS, navigateur)
+
+## 📄 Licence
+
+Projet de recherche - Tous droits réservés
+
+---
+
+**🎯 Version actuelle**: 1.0.0 (Corrections WebSocket appliquées)  
+**🧪 Status**: Prêt pour test et développement  
+**🔗 Dernière correction**: Configuration proxy Vite + gestion erreurs OpenAI

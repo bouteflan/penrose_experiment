@@ -3,23 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>REMOTE - Thriller Psychologique</title>
-    <meta name="description" content="Un thriller psychologique de 10 minutes explorant les biais cognitifs dans l'interaction humain-IA" />
-    
-    <!-- Favicon (placeholder) -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    
-    <!-- Préchargement des polices système -->
-    <link rel="preload" href="/assets/fonts/system.woff2" as="font" type="font/woff2" crossorigin />
-    
-    <!-- Meta tags pour l'expérience -->
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#1a1b23" />
-    
-    <!-- Open Graph pour le partage -->
-    <meta property="og:title" content="REMOTE - Thriller Psychologique" />
-    <meta property="og:description" content="Une expérience interactive explorant les biais cognitifs" />
-    <meta property="og:type" content="website" />
+    <title>REMOTE - Diagnostic Mode</title>
     
     <!-- Styles de base pour éviter le flash -->
     <style>
@@ -59,16 +43,11 @@
         pointer-events: none;
       }
       
-      .loading-content {
-        text-align: center;
-        max-width: 400px;
-      }
-      
       .loading-title {
         font-size: 2.5rem;
         font-weight: 300;
         margin-bottom: 1rem;
-        background: linear-gradient(45deg, #6c5ce7, #74b9ff);
+        background: linear-gradient(45deg, #e17055, #fdcb6e);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -85,33 +64,10 @@
         width: 40px;
         height: 40px;
         border: 3px solid #333;
-        border-top: 3px solid #6c5ce7;
+        border-top: 3px solid #e17055;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 1rem;
-      }
-      
-      .loading-progress {
-        width: 200px;
-        height: 2px;
-        background: #333;
-        border-radius: 1px;
-        overflow: hidden;
-        margin: 0 auto;
-      }
-      
-      .loading-progress-bar {
-        height: 100%;
-        background: linear-gradient(90deg, #6c5ce7, #74b9ff);
-        width: 0%;
-        transition: width 0.3s ease;
-      }
-      
-      .loading-status {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: #666;
-        min-height: 1.2rem;
       }
       
       @keyframes spin {
@@ -125,47 +81,6 @@
         height: 100%;
         overflow: hidden;
       }
-      
-      /* Prévention de la sélection de texte pendant le jeu */
-      .game-active {
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-      }
-      
-      /* Variables CSS pour le thème */
-      :root {
-        --color-primary: #6c5ce7;
-        --color-secondary: #74b9ff;
-        --color-accent: #fdcb6e;
-        --color-danger: #e17055;
-        --color-success: #00b894;
-        --color-warning: #fdcb6e;
-        
-        --color-bg-primary: #1a1b23;
-        --color-bg-secondary: #2c2d35;
-        --color-bg-tertiary: #3c3d45;
-        
-        --color-text-primary: #ffffff;
-        --color-text-secondary: #a0a0a0;
-        --color-text-muted: #666666;
-        
-        --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-        
-        --border-radius: 8px;
-        --border-radius-small: 4px;
-        --border-radius-large: 12px;
-        
-        --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.1);
-        --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
-        --shadow-large: 0 8px 16px rgba(0, 0, 0, 0.2);
-        
-        --transition-fast: 0.15s ease;
-        --transition-medium: 0.3s ease;
-        --transition-slow: 0.5s ease;
-      }
     </style>
   </head>
   
@@ -174,63 +89,55 @@
     <div id="loading-screen">
       <div class="loading-content">
         <h1 class="loading-title">REMOTE</h1>
-        <p class="loading-subtitle">Thriller Psychologique</p>
+        <p class="loading-subtitle">Mode Diagnostic</p>
         <div class="loading-spinner"></div>
-        <div class="loading-progress">
-          <div class="loading-progress-bar" id="progress-bar"></div>
-        </div>
-        <div class="loading-status" id="loading-status">Initialisation...</div>
+        <p id="loading-status">Diagnostic en cours...</p>
       </div>
     </div>
     
     <!-- Application React -->
     <div id="root"></div>
     
-    <!-- Script de loading -->
+    <!-- Scripts de diagnostic -->
     <script>
-      // Simulation du chargement progressif
-      const progressBar = document.getElementById('progress-bar');
-      const loadingStatus = document.getElementById('loading-status');
-      const loadingScreen = document.getElementById('loading-screen');
+      console.log('🔍 REMOTE - Mode Diagnostic activé');
       
-      let progress = 0;
-      const loadingSteps = [
-        { text: 'Initialisation...', duration: 500 },
-        { text: 'Chargement des ressources...', duration: 800 },
-        { text: 'Configuration du système...', duration: 600 },
-        { text: 'Connexion au support technique...', duration: 700 },
-        { text: 'Préparation de l\'interface...', duration: 400 },
-        { text: 'Prêt', duration: 200 }
-      ];
+      // Variables globales pour le diagnostic
+      window.REMOTE_CONFIG = {
+        version: '1.0.0-debug',
+        environment: 'development-debug',
+        apiUrl: 'http://localhost:8000',
+        wsUrl: 'ws://localhost:8000',
+        debug: true,
+        diagnostic: true
+      };
       
-      let currentStep = 0;
+      // Gestion des erreurs améliorée
+      window.addEventListener('error', (event) => {
+        console.error('🚨 Erreur globale capturée:', {
+          message: event.message,
+          filename: event.filename,
+          lineno: event.lineno,
+          colno: event.colno,
+          error: event.error,
+          stack: event.error?.stack
+        });
+        
+        // Afficher l'erreur à l'utilisateur
+        document.getElementById('loading-status').textContent = 
+          'Erreur détectée - Vérifiez la console (F12)';
+      });
       
-      function updateLoading() {
-        if (currentStep < loadingSteps.length) {
-          const step = loadingSteps[currentStep];
-          loadingStatus.textContent = step.text;
-          
-          const targetProgress = ((currentStep + 1) / loadingSteps.length) * 100;
-          progressBar.style.width = targetProgress + '%';
-          
-          setTimeout(() => {
-            currentStep++;
-            updateLoading();
-          }, step.duration);
-        } else {
-          // Chargement terminé
-          setTimeout(() => {
-            loadingScreen.classList.add('hidden');
-            // Le remove sera fait par React
-          }, 300);
-        }
-      }
+      window.addEventListener('unhandledrejection', (event) => {
+        console.error('🚨 Promesse rejetée non gérée:', event.reason);
+        
+        document.getElementById('loading-status').textContent = 
+          'Erreur de promesse - Vérifiez la console (F12)';
+      });
       
-      // Démarrer le chargement après un petit délai
-      setTimeout(updateLoading, 100);
-      
-      // Fonction globale pour cacher l'écran de chargement (appelée par React)
+      // Fonction pour cacher l'écran de chargement
       window.hideLoadingScreen = function() {
+        const loadingScreen = document.getElementById('loading-screen');
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
           if (loadingScreen.parentNode) {
@@ -239,41 +146,10 @@
         }, 500);
       };
       
-      // Prévention des interactions accidentelles
-      document.addEventListener('DOMContentLoaded', function() {
-        // Désactiver le menu contextuel pendant le jeu
-        document.addEventListener('contextmenu', function(e) {
-          if (document.body.classList.contains('game-active')) {
-            e.preventDefault();
-          }
-        });
-        
-        // Désactiver certains raccourcis clavier
-        document.addEventListener('keydown', function(e) {
-          if (document.body.classList.contains('game-active')) {
-            // Désactiver F5, Ctrl+R, etc. pendant le jeu
-            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
-              e.preventDefault();
-              // Afficher un avertissement dans le jeu
-              window.dispatchEvent(new CustomEvent('gameWarning', {
-                detail: { type: 'refresh_prevented', message: 'Actualisation désactivée pendant le jeu' }
-              }));
-            }
-          }
-        });
-      });
-      
-      // Variables globales pour le jeu
-      window.REMOTE_CONFIG = {
-        version: '1.0.0',
-        environment: 'development',
-        apiUrl: 'http://localhost:8000',
-        wsUrl: 'ws://localhost:8000',
-        debug: true
-      };
+      console.log('✅ Scripts de diagnostic initialisés');
     </script>
     
-    <!-- Le script React sera injecté ici par Vite -->
-    <script type="module" src="/src/index.jsx"></script>
+    <!-- Chargement de l'application React de diagnostic -->
+    <script type="module" src="/src/index-debug.jsx"></script>
   </body>
 </html>
